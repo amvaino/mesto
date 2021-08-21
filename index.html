@@ -109,8 +109,8 @@
                 <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
             </footer>
         </div>
+        <!-- popup "Всплывающее окно Редактировать профиль"-->
         <section class="popup" aria-label="Всплывающее окно">
-            <!-- в section class="popup" дабавим потом модификатор popup_opened-->
             <div class="popup__container">
                 <button type="reset" class="popup__close"></button>
                 <h3 class="popup__title">Редактировать профиль</h3>
@@ -133,26 +133,26 @@
                 </form>
             </div>
         </section>
+        <!-- popup "Всплывающее окно добавить новое место"-->
         <section
             class="popup new-item-form"
             aria-label="Всплывающее окно добавить новое место"
         >
-            <!-- в section class="popup" дабавим потом модификатор popup_opened-->
             <div class="popup__container">
                 <button type="reset" class="popup__close"></button>
-                <h3 class="popup__title">Редактировать профиль</h3>
+                <h3 class="popup__title">Новое место</h3>
                 <form class="popup__form" name="edit-profile">
                     <input
                         class="popup__name"
                         name="name"
                         type="text"
-                        placeholder="Жак-Ив Кусто"
+                        placeholder="Название"
                     />
                     <input
                         class="popup__name"
                         name="description"
                         type="text"
-                        placeholder="Исследователь океана"
+                        placeholder="Ссылка на кртинку"
                     />
                     <button type="submit" class="popup__button">
                         Сохранить
