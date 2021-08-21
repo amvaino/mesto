@@ -37,6 +37,7 @@
                             src="./images/kchr.jpg"
                             alt="Горы.Карачаево-Черкессия"
                         />
+                        <div class="card__delete-icon"></div>
                         <div class="card__content">
                             <h2 class="card__title">Карачаево-Черкессия</h2>
                             <button type="button" class="card__like"></button>
@@ -48,6 +49,7 @@
                             src="./images/elbrus.jpg"
                             alt="Гора Эльбрус"
                         />
+                        <div class="card__delete-icon"></div>
                         <div class="card__content">
                             <h2 class="card__title">Гора Эльбрус</h2>
                             <button type="button" class="card__like"></button>
@@ -59,6 +61,7 @@
                             src="./images/dombai.jpg"
                             alt="Домбай"
                         />
+                        <div class="card__delete-icon"></div>
                         <div class="card__content">
                             <h2 class="card__title">Домбай</h2>
                             <button type="button" class="card__like"></button>
@@ -70,6 +73,7 @@
                             src="./images/elbrus.jpg"
                             alt="Гора Эльбрус"
                         />
+                        <div class="card__delete-icon"></div>
                         <div class="card__content">
                             <h2 class="card__title">Гора Эльбрус</h2>
                             <button type="button" class="card__like"></button>
@@ -81,6 +85,7 @@
                             src="./images/dombai.jpg"
                             alt="Домбай"
                         />
+                        <div class="card__delete-icon"></div>
                         <div class="card__content">
                             <h2 class="card__title">Домбай</h2>
                             <button type="button" class="card__like"></button>
@@ -92,6 +97,7 @@
                             src="./images/karachaevsk.jpg"
                             alt="Карачаевск"
                         />
+                        <div class="card__delete-icon"></div>
                         <div class="card__content">
                             <h2 class="card__title">Карачаевск</h2>
                             <button type="button" class="card__like"></button>
@@ -104,6 +110,33 @@
             </footer>
         </div>
         <section class="popup" aria-label="Всплывающее окно">
+            <!-- в section class="popup" дабавим потом модификатор popup_opened-->
+            <div class="popup__container">
+                <button type="reset" class="popup__close"></button>
+                <h3 class="popup__title">Редактировать профиль</h3>
+                <form class="popup__form" name="edit-profile">
+                    <input
+                        class="popup__name"
+                        name="name"
+                        type="text"
+                        placeholder="Жак-Ив Кусто"
+                    />
+                    <input
+                        class="popup__name"
+                        name="description"
+                        type="text"
+                        placeholder="Исследователь океана"
+                    />
+                    <button type="submit" class="popup__button">
+                        Сохранить
+                    </button>
+                </form>
+            </div>
+        </section>
+        <section
+            class="popup new-item-form"
+            aria-label="Всплывающее окно добавить новое место"
+        >
             <!-- в section class="popup" дабавим потом модификатор popup_opened-->
             <div class="popup__container">
                 <button type="reset" class="popup__close"></button>

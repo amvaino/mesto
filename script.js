@@ -1,15 +1,19 @@
-let popupProfileEdit = document.querySelector(".popup");
-let popupProfileEditClose = document.querySelector(".popup__close");
-console.log(popupProfileEditClose);
+let clickProfileEdit = document.querySelector(".profile__edit"); //находим кнопку редактировать профиль
+let popupProfileEdit = document.querySelector(".popup"); //находим попап
+let popupProfileEditClose = document.querySelector(".popup__close"); //находим крестик закрыть попап
+let clickCardLike = document.querySelectorAll(".card__like"); //находим все like
+let clickProfileAdd = document.querySelector(".profile__add"); //находим кнопку добавить профиль
 
-let clickProfileEdit = document.querySelector(".profile__edit");
 clickProfileEdit.addEventListener("click", function () {
     console.log("Мы кликнули по редактировать профиль");
-    popupProfileEdit.classList.add("popup_opened"); //открываем попап
-    popupProfileEditClose.classList.remove("popup_opened"); //закрываем попап
+    popupProfileEdit.classList.add("popup_opened"); //открываем попап, добавляем у popup класс popup_opened
 });
 
-let clickProfileAdd = document.querySelector(".profile__add");
+popupProfileEditClose.addEventListener("click", function () {
+    console.log("Мы кликнули по закрыть попап");
+    popupProfileEdit.classList.remove("popup_opened"); //закрываем попап, удаляем у popup класс popup_opened
+});
+
 clickProfileAdd.addEventListener("click", function () {
     console.log("Мы кликнули по добавить профиль");
 });
