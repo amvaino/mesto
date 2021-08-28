@@ -5,7 +5,6 @@ clickProfileEdit.addEventListener("click", function () {
     popupProfileEdit.classList.add("popup_opened"); //открываем попап "редактировать профиль", добавляем у popup класс popup_opened
 });
 let popupClose = popupProfileEdit.querySelector(".popup__close"); //находим крестик
-
 popupClose.addEventListener("click", function () {
     popupProfileEdit.classList.remove("popup_opened"); //закрываем попап "редактировать профиль" удаляем у popup класс popup_opened
 });
