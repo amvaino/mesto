@@ -22,3 +22,14 @@ popupFormClose.addEventListener("click", function () {
 });
 
 let clickCardLike = document.querySelectorAll(".card__like"); //находим все like
+
+//Добавляем новую карточку
+let elementsGrid = document.querySelector(".elements-grid"); //находим раздел карточек
+function newСard(artistValue, titleValue) {
+    const cardTemplate = document.querySelector("#new-card").content; //получаем содержимое шаблона tamplate карточек
+    const cardElement = cardTemplate.querySelector(".card").cloneNode(true); //клонируем содержимое шаблона tamplate карточек
+    cardElement.querySelector(".card__image").src = urlImageValue; //добавляем новую картинку
+    cardElement.querySelector(".card__image").alt = altImageValue; //добавляем alt картинке
+    cardElement.querySelector(".card__content").textContent = contentCardValue; //добавляем контент
+    elementsGrid.prepend(cardElement); //выводим новую карточку в начале списка карточек
+}
