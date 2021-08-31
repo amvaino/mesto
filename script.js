@@ -1,35 +1,73 @@
 //ПОПАП "редактировать профиль"
-let clickProfileEdit = document.querySelector(".profile__edit"); //находим кнопку редактировать профиль
-let popupProfileEdit = document.querySelector(".popup"); //находим попап "редактировать профиль"
+const clickProfileEdit = document.querySelector(".profile__edit"); //находим кнопку редактировать профиль
+const popupProfileEdit = document.querySelector(".popup"); //находим попап "редактировать профиль"
 clickProfileEdit.addEventListener("click", function () {
     popupProfileEdit.classList.add("popup_opened"); //открываем попап "редактировать профиль", добавляем у popup класс popup_opened
 });
-let popupClose = popupProfileEdit.querySelector(".popup__close"); //находим крестик
+const popupClose = popupProfileEdit.querySelector(".popup__close"); //находим крестик
 popupClose.addEventListener("click", function () {
     popupProfileEdit.classList.remove("popup_opened"); //закрываем попап "редактировать профиль" удаляем у popup класс popup_opened
 });
 
 //ПОПАП "добавить новое место"
-let clickProfileAdd = document.querySelector(".profile__add"); //находим кнопку добавить профиль
-let newItemForm = document.querySelector(".new-item-form"); //находим попап "добавить новое место"
+const clickProfileAdd = document.querySelector(".profile__add"); //находим кнопку добавить профиль
+const newItemForm = document.querySelector(".new-item-form"); //находим попап "добавить новое место"
 clickProfileAdd.addEventListener("click", function () {
     newItemForm.classList.add("popup_opened"); //открываем попап "добавить новое место", добавляем у popup класс popup_opened
 });
 
-let popupFormClose = newItemForm.querySelector(".popup__close"); //находим крестик 2ой попап
+const popupFormClose = newItemForm.querySelector(".popup__close"); //находим крестик 2ой попап
 popupFormClose.addEventListener("click", function () {
     newItemForm.classList.remove("popup_opened"); //закрываем попап "добавить место"
 });
 
-let clickCardLike = document.querySelectorAll(".card__like"); //находим все like
+const clickCardLike = document.querySelectorAll(".card__like"); //находим все like
+
+//Добавляем карточки
+const cardsList = document.querySelector(".elements-grid"); //находим список карточек
+const cardElement = document.querySelector(".card"); //находим карточку
+const cardTemplate = document.querySelector(".cards-temlate").content; //находим шаблон карточки
+//массив данных карточек
+const primordialCards = [
+    {
+        title: "Карачаево-Черкессия",
+        imgLink: "./images/kchr.jpg",
+        imgAlt: "Горы.Карачаево-Черкессия",
+    },
+    {
+        title: "Гора Эльбрус",
+        imgLink: "./images/elbrus.jpg",
+        imgAlt: "Гора Эльбрус",
+    },
+    {
+        title: "Домбай",
+        imgLink: "./images/dombai.jpg",
+        imgAlt: "Домбай",
+    },
+    {
+        title: "Гора Эльбрус",
+        imgLink: "./images/elbrus.jpg",
+        imgAlt: "Гора Эльбрус",
+    },
+    {
+        title: "Карачаевск",
+        imgLink: "./images/karachaevsk.jpg",
+        imgAlt: "Карачаевск",
+    },
+    {
+        title: "Домбай",
+        imgLink: "./images/dombai.jpg",
+        imgAlt: "Домбай",
+    },
+];
+
+primordialCards.forEach(function (element) {
+    const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+    cardElement.querySelector(".card__title").textContent = element.title;
+    cardElement.querySelector(".card__image").src = element.imgLink;
+    cardElement.querySelector(".card__image").alt = element.imgAlt;
+
+    cardsList.append(cardElement);
+});
 
 //Добавляем новую карточку
-let elementsGrid = document.querySelector(".elements-grid"); //находим раздел карточек
-function newСard(artistValue, titleValue) {
-    const cardTemplate = document.querySelector("#new-card").content; //получаем содержимое шаблона tamplate карточек
-    const cardElement = cardTemplate.querySelector(".card").cloneNode(true); //клонируем содержимое шаблона tamplate карточек
-    cardElement.querySelector(".card__image").src = urlImageValue; //добавляем новую картинку
-    cardElement.querySelector(".card__image").alt = altImageValue; //добавляем alt картинке
-    cardElement.querySelector(".card__content").textContent = contentCardValue; //добавляем контент
-    elementsGrid.prepend(cardElement); //выводим новую карточку в начале списка карточек
-}
