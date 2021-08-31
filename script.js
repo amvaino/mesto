@@ -60,13 +60,18 @@ const primordialCards = [
         imgAlt: "Домбай",
     },
 ];
-
+//вывод в DOM карточек
 primordialCards.forEach(function (element) {
     const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+    //обработчик лайка
+    cardElement
+        .querySelector(".card__like")
+        .addEventListener("click", function (evt) {
+            evt.target.classList.toggle("card__like_active");
+        });
     cardElement.querySelector(".card__title").textContent = element.title;
     cardElement.querySelector(".card__image").src = element.imgLink;
     cardElement.querySelector(".card__image").alt = element.imgAlt;
-
     cardsList.append(cardElement);
 });
 
