@@ -1,48 +1,51 @@
-//ПОПАП "редактировать профиль"
-const clickProfileEdit = document.querySelector(".profile__edit"); //находим кнопку редактировать профиль
+const clickProfileEdit = document.querySelector(".profile__edit"); //находим кнопку "редактировать профиль"
 const popupProfileEdit = document.querySelector(".popup"); //находим попап "редактировать профиль"
-clickProfileEdit.addEventListener("click", function () {
-    popupProfileEdit.classList.add("popup_opened"); //открываем попап "редактировать профиль", добавляем у popup класс popup_opened
-});
-const popupClose = popupProfileEdit.querySelector(".popup__close"); //находим крестик
-popupClose.addEventListener("click", function () {
-    popupProfileEdit.classList.remove("popup_opened"); //закрываем попап "редактировать профиль" удаляем у popup класс popup_opened
-});
-
-//ПОПАП "добавить новое место"
-const clickProfileAdd = document.querySelector(".profile__add"); //находим кнопку добавить профиль
+const clickProfileAdd = document.querySelector(".profile__add"); //находим кнопку "добавить новое место"
 const newItemForm = document.querySelector(".new-item-form"); //находим попап "добавить новое место"
-clickProfileAdd.addEventListener("click", function () {
-    newItemForm.classList.add("popup_opened"); //открываем попап "добавить новое место", добавляем у popup класс popup_opened
+
+//ПОПАПы открытие-закрытие
+function openPopup(popup) {
+    popup.classList.add("popup_opened");
+}
+function closePopup(popup) {
+    popup.classList.remove("popup_opened");
+}
+
+clickProfileEdit.addEventListener("click", () => {
+    openPopup(popupProfileEdit);
 });
 
-const popupFormClose = newItemForm.querySelector(".popup__close"); //находим крестик 2ой попап
-popupFormClose.addEventListener("click", function () {
-    newItemForm.classList.remove("popup_opened"); //закрываем попап "добавить место"
+clickProfileAdd.addEventListener("click", () => {
+    openPopup(newItemForm);
 });
 
-const clickCardLike = document.querySelectorAll(".card__like"); //находим все like
+popupProfileEdit.addEventListener("click", (event) => {
+    if (
+        event.target.classList.contains("popup__close") ||
+        event.target.classList.contains("popup")
+    )
+        closePopup(popupProfileEdit);
+});
 
-//Добавляем карточки
+newItemForm.addEventListener("click", (event) => {
+    if (
+        event.target.classList.contains("popup__close") ||
+        event.target.classList.contains("popup")
+    )
+        closePopup(newItemForm);
+});
+
+//карточки
 const cardsList = document.querySelector(".elements-grid"); //находим список карточек
-const cardElement = document.querySelector(".card"); //находим карточку
+const cardElement = cardsList.querySelector(".card"); //находим карточку
 const cardTemplate = document.querySelector(".cards-temlate").content; //находим шаблон карточки
 //массив данных карточек
 const primordialCards = [
     {
-        title: "Карачаево-Черкессия",
-        imgLink: "./images/kchr.jpg",
-        imgAlt: "Горы.Карачаево-Черкессия",
-    },
-    {
-        title: "Гора Эльбрус",
-        imgLink: "./images/elbrus.jpg",
-        imgAlt: "Гора Эльбрус",
-    },
-    {
-        title: "Домбай",
-        imgLink: "./images/dombai.jpg",
-        imgAlt: "Домбай",
+        title: "Таллин",
+        imgLink:
+            "https://www.tripzaza.com/ru/destinations/wp-content/uploads/2018/07/Dostoprimechatelnosti-Tallina-e1531520714909.jpg",
+        imgAlt: "Таллин",
     },
     {
         title: "Гора Эльбрус",
@@ -73,5 +76,33 @@ primordialCards.forEach(function (element) {
     cardElement.querySelector(".card__image").src = element.imgLink;
     cardElement.querySelector(".card__image").alt = element.imgAlt;
     cardsList.append(cardElement);
+    //удаляем карточку
+    const deleteButton = cardElement.querySelector(".card__delete-icon");
+    deleteButton.addEventListener("click", function () {
+        const card = document.querySelector(".element");
+
+        cardElement.remove();
+    });
 });
 //Добавляем новую карточку
+const popupButtonSaveNewItemForm = newItemForm.querySelector(".popup__button"); //находим кнопу сохранить в Popup новое место
+
+popupButtonSaveNewItemForm.addEventListener("click", function () {
+    console.log(popupButtonSaveNewItemForm);
+});
+
+// function addCard() {
+//     const newCard = cardTemplate.querySelector(".card").cloneNode(true);
+//     newCard.querySelector(".card__image").src = `${linkInput.value}`;
+//     newCard.querySelector(
+//         ".card__title"
+//     ).textContent = `${locationInput.value}`;
+//     newCard
+//         .querySelector(".card__like")
+//         .addEventListener("click", function (evt) {
+//             evt.target.classList.toggle("card__like_active");
+//             console.log(evt);
+//         });
+
+//     cardElement.prepend(newCard);
+// }
