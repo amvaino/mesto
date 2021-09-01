@@ -74,5 +74,4 @@ primordialCards.forEach(function (element) {
     cardElement.querySelector(".card__image").alt = element.imgAlt;
     cardsList.append(cardElement);
 });
-
 //Добавляем новую карточку
