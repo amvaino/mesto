@@ -2,6 +2,27 @@ const clickProfileEdit = document.querySelector(".profile__edit"); //наход�
 const popupProfileEdit = document.querySelector(".popup"); //находим попап "редактировать профиль"
 const clickProfileAdd = document.querySelector(".profile__add"); //находим кнопку "добавить новое место"
 const newItemForm = document.querySelector(".new-item-form"); //находим попап "добавить новое место"
+const profileTitle = document.querySelector(".profile__name");
+const profileSubtitle = document.querySelector(".profile__subname");
+// Обработчик «отправки» формы, хотя пока
+// она никуда отправляться не будет
+function formSubmitHandler(evt) {
+    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+    // Так мы можем определить свою логику отправки.
+    // О том, как это делать, расскажем позже.
+
+    // Получите значение полей jobInput и nameInput из свойства value
+    let nameInput = document.getElementsByName("nameInput");
+    let jobInput = document.getElementsByName("jobInput");
+
+    // Выберите элементы, куда должны быть вставлены значения полей
+    nameInput.value = `${profileTitle.textContent}`;
+    jobInput.value = `${profileSubtitle.textContent}`;
+
+    // Вставьте новые значения с помощью textContent
+    nameInput.value = `${profileTitle.textContent}`;
+    jobInput.value = `${profileSubtitle.textContent}`;
+}
 
 //ПОПАПы открытие-закрытие
 function openPopup(popup) {
@@ -39,30 +60,31 @@ newItemForm.addEventListener("click", (event) => {
 const cardsList = document.querySelector(".elements-grid"); //находим список карточек
 const cardElement = cardsList.querySelector(".card"); //находим карточку
 const cardTemplate = document.querySelector(".cards-temlate").content; //находим шаблон карточки
-//массив данных карточек
+//массив объектов данных карточек
 const primordialCards = [
     {
-        title: "Таллин",
-        imgLink:
+        "название места": "Таллин",
+        "ссылка на картинку":
             "https://www.tripzaza.com/ru/destinations/wp-content/uploads/2018/07/Dostoprimechatelnosti-Tallina-e1531520714909.jpg",
         imgAlt: "Таллин",
     },
     {
-        title: "Гора Эльбрус",
-        imgLink: "./images/elbrus.jpg",
+        "название места": "Гора Эльбрус",
+        "ссылка на картинку": "./images/elbrus.jpg",
         imgAlt: "Гора Эльбрус",
     },
     {
-        title: "Карачаевск",
-        imgLink: "./images/karachaevsk.jpg",
+        "название места": "Карачаевск",
+        "ссылка на картинку": "./images/karachaevsk.jpg",
         imgAlt: "Карачаевск",
     },
     {
-        title: "Домбай",
-        imgLink: "./images/dombai.jpg",
+        "название места": "Домбай",
+        "ссылка на картинку": "./images/dombai.jpg",
         imgAlt: "Домбай",
     },
 ];
+console.log(primordialCards);
 //вывод в DOM карточек
 primordialCards.forEach(function (element) {
     const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
@@ -72,8 +94,10 @@ primordialCards.forEach(function (element) {
         .addEventListener("click", function (evt) {
             evt.target.classList.toggle("card__like_active");
         });
-    cardElement.querySelector(".card__title").textContent = element.title;
-    cardElement.querySelector(".card__image").src = element.imgLink;
+    cardElement.querySelector(".card__title").textContent =
+        element["название места"];
+    cardElement.querySelector(".card__image").src =
+        element["ссылка на картинку"];
     cardElement.querySelector(".card__image").alt = element.imgAlt;
     cardsList.append(cardElement);
     //удаляем карточку
