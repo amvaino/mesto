@@ -55,6 +55,7 @@ function formSubmitHandler(evt) {
     let jobInput = document.getElementById("f2").value;
     profileName.textContent = nameInput;
     profileSubname.textContent = jobInput;
+    inputCleaning(); //очистка формы
 }
 popupProfileEdit.addEventListener("submit", formSubmitHandler);
 // Обработчик отправки формы "новое место"
@@ -71,6 +72,7 @@ function formSubmitMesto(evt) {
     point.link = link;
     point.alt = name;
     newItem(point);
+    inputCleaning(); //очистка формы
 }
 newItemForm.addEventListener("submit", formSubmitMesto);
 
@@ -175,3 +177,10 @@ primordialCards.forEach(function (element) {
         cardElement.remove();
     });
 });
+// очистить inputы в форме
+function inputCleaning() {
+    const inputFields = document.querySelectorAll("input");
+    inputFields.forEach((item) => {
+        item.value = "";
+    });
+}
