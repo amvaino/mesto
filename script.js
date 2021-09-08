@@ -8,38 +8,44 @@ const profileSubname = document.querySelector(".profile__subname"); //наход
 const cardsList = document.querySelector(".elements-grid"); //находим список карточек
 const cardTemplate = document.querySelector(".cards-temlate").content; //находим шаблон карточки
 const cardElement = cardTemplate.querySelector(".card"); //находим карточку в шаблоне
-let cardImg = cardElement.querySelector(".card__image"); //находим картинку в карточке в шаблоне
-console.log(cardImg);
+const cardImg = cardElement.querySelector(".card__image"); //находим картинку в карточке в шаблоне
 // Получаем ссылки на элементы модалки для просмотра увеличенных изображений
 const imgBigPopap = document.querySelector(".img-card-big");
-const showPhotoCloseButton = imgBigPopap.querySelector(".popup__close");
+//const showPhotoCloseButton = imgBigPopap.querySelector(".popup__close");
 const modalImageElement = imgBigPopap.querySelector(".popup__image");
-const modalTextElement = imgBigPopap.querySelector(".popup__figcaption");
+const captionTextImg = imgBigPopap.querySelector(".popup__caption");
+
 //массив карточек
 const primordialCards = [
     {
         name: "Архыз",
         link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+        alt: "Архыз",
     },
     {
         name: "Челябинская область",
         link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
+        alt: "Челябинская область",
     },
     {
         name: "Иваново",
         link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+        alt: "Иваново",
     },
     {
         name: "Камчатка",
         link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
+        alt: "Камчатка",
     },
     {
         name: "Холмогорский район",
         link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+        alt: "Холмогорский район",
     },
     {
         name: "Байкал",
         link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+        alt: "Байкал",
     },
 ];
 // Обработчик отправки формы "редактировать профиль"
@@ -51,6 +57,22 @@ function formSubmitHandler(evt) {
     profileSubname.textContent = jobInput;
 }
 popupProfileEdit.addEventListener("submit", formSubmitHandler);
+// Обработчик отправки формы "новое место"
+function formSubmitMesto(evt) {
+    evt.preventDefault();
+    //Получения введенных значений в поля
+    const name = document.getElementById("f3").value;
+    const link = document.getElementById("f4").value;
+    const point = {
+        name: "",
+        link: "",
+    };
+    point.name = name;
+    point.link = link;
+    point.alt = name;
+    newItem(point);
+}
+newItemForm.addEventListener("submit", formSubmitMesto);
 
 //ПОПАПы открытие-закрытие
 function openPopup(popup) {
@@ -65,16 +87,6 @@ clickProfileEdit.addEventListener("click", () => {
 clickProfileAdd.addEventListener("click", () => {
     openPopup(newItemForm);
 });
-cardImg = cardElement
-    .querySelector(".card__image")
-    .addEventListener("click", function (evt) {
-        //клик по изображению
-        modalImageElement.src = evt.target.src;
-        modalImageElement.alt = evt.target.alt;
-        modalTextElement.textContent = evt.target.alt;
-
-        openPopup(imgBigPopap);
-    });
 popupProfileEdit.addEventListener("click", (event) => {
     if (
         event.target.classList.contains("popup__close") ||
@@ -100,9 +112,11 @@ imgBigPopap.addEventListener("click", (event) => {
         closePopup(imgBigPopap);
 });
 
+//Создаем новую карточку
 function createCard(point) {
     const cardItemTemplate = document.querySelector(".cards-temlate");
     const newItem = cardItemTemplate.content.firstElementChild.cloneNode(true);
+    //обрабатываем лайк
     newItem
         .querySelector(".card__like")
         .addEventListener("click", function (evt) {
@@ -111,39 +125,23 @@ function createCard(point) {
     //удаляем карточку
     const deleteButton = newItem.querySelector(".card__delete-icon");
     deleteButton.addEventListener("click", function () {
-        const card = document.querySelector(".element");
         newItem.remove();
     });
     newItem.querySelector(".card__title").textContent = point.name;
     newItem.querySelector(".card__image").src = point.link;
+    newItem.querySelector(".card__image").alt = point.name;
     newItem
         .querySelector(".card__image")
         .addEventListener("click", function (evt) {
-            //клик по изображению
+            //клик по картинке
             modalImageElement.src = evt.target.src;
-
+            modalImageElement.alt = evt.target.alt;
+            captionTextImg.textContent = evt.target.alt;
             openPopup(imgBigPopap);
         });
     return newItem;
 }
-// Обработчик отправки формы "новое место" сделал
-function formSubmitMesto(evt) {
-    evt.preventDefault();
-    //Получения введенных значений в поля
-    const name = document.getElementById("f3").value;
-    const link = document.getElementById("f4").value;
-    const point = {
-        name: "",
-        link: "",
-    };
-    point.name = name;
-    point.link = link;
-    newItem(point);
-}
-newItemForm.addEventListener("submit", formSubmitMesto);
-
-//Добавление карточки места
-
+//Выводим новую карточку
 function newItem(point) {
     let newItem = createCard(point);
     cardsList.prepend(newItem);
@@ -151,7 +149,7 @@ function newItem(point) {
 //вывод карточек из массива
 primordialCards.forEach(function (element) {
     const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-    //обработчик лайка
+    //обрабатываем лайк
     cardElement
         .querySelector(".card__like")
         .addEventListener("click", function (evt) {
@@ -159,12 +157,14 @@ primordialCards.forEach(function (element) {
         });
     cardElement.querySelector(".card__title").textContent = element.name;
     cardElement.querySelector(".card__image").src = element.link;
+    cardElement.querySelector(".card__image").alt = element.name;
     cardElement
         .querySelector(".card__image")
         .addEventListener("click", function (evt) {
-            //клик по изображению
+            //клик по картинке
             modalImageElement.src = evt.target.src;
-
+            modalImageElement.alt = evt.target.alt;
+            captionTextImg.textContent = evt.target.alt;
             openPopup(imgBigPopap);
         });
     cardsList.append(cardElement);
@@ -172,7 +172,6 @@ primordialCards.forEach(function (element) {
     //удаляем карточку
     const deleteButton = cardElement.querySelector(".card__delete-icon");
     deleteButton.addEventListener("click", function () {
-        const card = document.querySelector(".element");
         cardElement.remove();
     });
 });

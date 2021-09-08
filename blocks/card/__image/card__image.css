@@ -3,4 +3,10 @@
     height: 282px;
     object-fit: cover;
     object-position: top;
+    cursor: pointer;
+}
+.card__image:hover {
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity, 0.8s;
 }
