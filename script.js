@@ -11,10 +11,8 @@ const cardElement = cardTemplate.querySelector(".card"); //находим кар
 const cardImg = cardElement.querySelector(".card__image"); //находим картинку в карточке в шаблоне
 // Получаем ссылки на элементы модалки для просмотра увеличенных изображений
 const imgBigPopap = document.querySelector(".img-card-big");
-//const showPhotoCloseButton = imgBigPopap.querySelector(".popup__close");
 const modalImageElement = imgBigPopap.querySelector(".popup__image");
 const captionTextImg = imgBigPopap.querySelector(".popup__caption");
-
 //массив карточек
 const primordialCards = [
     {
@@ -48,31 +46,34 @@ const primordialCards = [
         alt: "Байкал",
     },
 ];
+
 // Обработчик отправки формы "редактировать профиль"
 function formSubmitHandler(evt) {
     evt.preventDefault();
-    let nameInput = document.getElementById("f1").value;
-    let jobInput = document.getElementById("f2").value;
+    const nameInput = document.querySelector("[name=nameInput]").value;
+    const jobInput = document.querySelector("[name=jobInput]").value;
     profileName.textContent = nameInput;
     profileSubname.textContent = jobInput;
-    inputCleaning(); //очистка формы
+    inputCleaning();
 }
 popupProfileEdit.addEventListener("submit", formSubmitHandler);
+
 // Обработчик отправки формы "новое место"
 function formSubmitMesto(evt) {
     evt.preventDefault();
     //Получения введенных значений в поля
-    const name = document.getElementById("f3").value;
-    const link = document.getElementById("f4").value;
+    const name = document.querySelector("[name=mesto-title]").value;
+    const link = document.querySelector("[name=mesto-link]").value;
     const point = {
-        name: "",
-        link: "",
+        name,
+        link,
+        alt: name,
     };
     point.name = name;
     point.link = link;
     point.alt = name;
     newItem(point);
-    inputCleaning(); //очистка формы
+    inputCleaning();
 }
 newItemForm.addEventListener("submit", formSubmitMesto);
 
@@ -113,41 +114,8 @@ imgBigPopap.addEventListener("click", (event) => {
     )
         closePopup(imgBigPopap);
 });
+//разметка карточки
 
-//Создаем новую карточку
-function createCard(point) {
-    const cardItemTemplate = document.querySelector(".cards-temlate");
-    const newItem = cardItemTemplate.content.firstElementChild.cloneNode(true);
-    //обрабатываем лайк
-    newItem
-        .querySelector(".card__like")
-        .addEventListener("click", function (evt) {
-            evt.target.classList.toggle("card__like_active");
-        });
-    //удаляем карточку
-    const deleteButton = newItem.querySelector(".card__delete-icon");
-    deleteButton.addEventListener("click", function () {
-        newItem.remove();
-    });
-    newItem.querySelector(".card__title").textContent = point.name;
-    newItem.querySelector(".card__image").src = point.link;
-    newItem.querySelector(".card__image").alt = point.name;
-    newItem
-        .querySelector(".card__image")
-        .addEventListener("click", function (evt) {
-            //клик по картинке
-            modalImageElement.src = evt.target.src;
-            modalImageElement.alt = evt.target.alt;
-            captionTextImg.textContent = evt.target.alt;
-            openPopup(imgBigPopap);
-        });
-    return newItem;
-}
-//Выводим новую карточку
-function newItem(point) {
-    let newItem = createCard(point);
-    cardsList.prepend(newItem);
-}
 //вывод карточек из массива
 primordialCards.forEach(function (element) {
     const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
@@ -177,6 +145,44 @@ primordialCards.forEach(function (element) {
         cardElement.remove();
     });
 });
+//функция для инициализации карточки
+function createCard(point) {
+    const cardItemTemplate = document.querySelector(".cards-temlate");
+    const newItem = cardItemTemplate.content.firstElementChild.cloneNode(true);
+    //обрабатываем лайк
+    newItem
+        .querySelector(".card__like")
+        .addEventListener("click", function (evt) {
+            evt.target.classList.toggle("card__like_active");
+        });
+    //удаляем карточку
+    const deleteButton = newItem.querySelector(".card__delete-icon");
+    deleteButton.addEventListener("click", function () {
+        newItem.remove();
+    });
+    newItem.querySelector(".card__title").textContent = point.name;
+    newItem.querySelector(".card__image").src = point.link;
+    newItem.querySelector(".card__image").alt = point.name;
+    //клик по картинке
+    newItem
+        .querySelector(".card__image")
+        .addEventListener("click", function (evt) {
+            modalImageElement.src = point.link;
+            modalImageElement.alt = point.alt;
+            captionTextImg.textContent = point.alt;
+            openPopup(imgBigPopap);
+        });
+    return newItem;
+}
+//открыть большую картинку
+
+//Выводим новую карточку
+function newItem(point) {
+    const newItem = createCard(point);
+    cardsList.prepend(newItem);
+}
+//Выводим карточку из первоначального массива
+
 // очистить inputы в форме
 function inputCleaning() {
     const inputFields = document.querySelectorAll("input");
