@@ -114,41 +114,10 @@ imgBigPopap.addEventListener("click", (event) => {
     )
         closePopup(imgBigPopap);
 });
-//разметка карточки
 
-//вывод карточек из массива
-primordialCards.forEach(function (element) {
-    const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-    //обрабатываем лайк
-    cardElement
-        .querySelector(".card__like")
-        .addEventListener("click", function (evt) {
-            evt.target.classList.toggle("card__like_active");
-        });
-    cardElement.querySelector(".card__title").textContent = element.name;
-    cardElement.querySelector(".card__image").src = element.link;
-    cardElement.querySelector(".card__image").alt = element.name;
-    cardElement
-        .querySelector(".card__image")
-        .addEventListener("click", function (evt) {
-            //клик по картинке
-            modalImageElement.src = evt.target.src;
-            modalImageElement.alt = evt.target.alt;
-            captionTextImg.textContent = evt.target.alt;
-            openPopup(imgBigPopap);
-        });
-    cardsList.append(cardElement);
-
-    //удаляем карточку
-    const deleteButton = cardElement.querySelector(".card__delete-icon");
-    deleteButton.addEventListener("click", function () {
-        cardElement.remove();
-    });
-});
 //функция для инициализации карточки
 function createCard(point) {
-    const cardItemTemplate = document.querySelector(".cards-temlate");
-    const newItem = cardItemTemplate.content.firstElementChild.cloneNode(true);
+    const newItem = cardTemplate.querySelector(".card").cloneNode(true);
     //обрабатываем лайк
     newItem
         .querySelector(".card__like")
@@ -164,6 +133,7 @@ function createCard(point) {
     newItem.querySelector(".card__image").src = point.link;
     newItem.querySelector(".card__image").alt = point.name;
     //клик по картинке
+
     newItem
         .querySelector(".card__image")
         .addEventListener("click", function (evt) {
@@ -174,15 +144,17 @@ function createCard(point) {
         });
     return newItem;
 }
-//открыть большую картинку
 
+//Выводим массив карточек
+primordialCards.forEach(function newItem(point) {
+    const newItem = createCard(point);
+    cardsList.prepend(newItem);
+});
 //Выводим новую карточку
 function newItem(point) {
     const newItem = createCard(point);
     cardsList.prepend(newItem);
 }
-//Выводим карточку из первоначального массива
-
 // очистить inputы в форме
 function inputCleaning() {
     const inputFields = document.querySelectorAll("input");
