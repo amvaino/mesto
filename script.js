@@ -57,7 +57,6 @@ function formSubmitHandler(evt) {
     inputCleaning();
 }
 popupProfileEdit.addEventListener("submit", formSubmitHandler);
-
 // Обработчик отправки формы "новое место"
 function formSubmitMesto(evt) {
     evt.preventDefault();
@@ -133,7 +132,6 @@ function createCard(point) {
     newItem.querySelector(".card__image").src = point.link;
     newItem.querySelector(".card__image").alt = point.name;
     //клик по картинке
-
     newItem
         .querySelector(".card__image")
         .addEventListener("click", function (evt) {
@@ -144,17 +142,6 @@ function createCard(point) {
         });
     return newItem;
 }
-
-//Выводим массив карточек
-primordialCards.forEach(function newItem(point) {
-    const newItem = createCard(point);
-    cardsList.prepend(newItem);
-});
-//Выводим новую карточку
-function newItem(point) {
-    const newItem = createCard(point);
-    cardsList.prepend(newItem);
-}
 // очистить inputы в форме
 function inputCleaning() {
     const inputFields = document.querySelectorAll("input");
@@ -162,3 +149,13 @@ function inputCleaning() {
         item.value = "";
     });
 }
+//Выводим новую карточку
+function newItem(point) {
+    const newItem = createCard(point);
+    cardsList.prepend(newItem);
+}
+//Выводим массив карточек
+primordialCards.forEach(function newItem(point) {
+    const newItem = createCard(point);
+    cardsList.prepend(newItem);
+});
