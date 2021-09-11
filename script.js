@@ -1,18 +1,3 @@
-const clickProfileEdit = document.querySelector(".profile__edit"); //находим кнопку "редактировать профиль"
-const popupProfileEdit = document.querySelector(".popup"); //находим попап "редактировать профиль"
-const clickProfileAdd = document.querySelector(".profile__add"); //находим кнопку "добавить новое место"
-const newItemForm = document.querySelector(".new-item-form"); //находим попап "добавить новое место"
-const profileName = document.querySelector(".profile__name"); //находим имя h1
-const profileSubname = document.querySelector(".profile__subname"); //находим профессию
-//карточки
-const cardsList = document.querySelector(".elements-grid"); //находим список карточек
-const cardTemplate = document.querySelector(".cards-temlate").content; //находим шаблон карточки
-const cardElement = cardTemplate.querySelector(".card"); //находим карточку в шаблоне
-const cardImg = cardElement.querySelector(".card__image"); //находим картинку в карточке в шаблоне
-// Получаем ссылки на элементы модалки для просмотра увеличенных изображений
-const imgBigPopap = document.querySelector(".img-card-big");
-const modalImageElement = imgBigPopap.querySelector(".popup__image");
-const captionTextImg = imgBigPopap.querySelector(".popup__caption");
 //массив карточек
 const primordialCards = [
     {
@@ -46,6 +31,21 @@ const primordialCards = [
         alt: "Байкал",
     },
 ];
+const clickProfileEdit = document.querySelector(".profile__edit"); //находим кнопку "редактировать профиль"
+const popupProfileEdit = document.querySelector(".popup"); //находим попап "редактировать профиль"
+const clickProfileAdd = document.querySelector(".profile__add"); //находим кнопку "добавить новое место"
+const newItemForm = document.querySelector(".new-item-form"); //находим попап "добавить новое место"
+const profileName = document.querySelector(".profile__name"); //находим имя h1
+const profileSubname = document.querySelector(".profile__subname"); //находим профессию
+//карточки
+const cardsList = document.querySelector(".elements-grid"); //находим список карточек
+const cardTemplate = document.querySelector(".cards-temlate").content; //находим шаблон карточки
+const cardElement = cardTemplate.querySelector(".card"); //находим карточку в шаблоне
+const cardImg = cardElement.querySelector(".card__image"); //находим картинку в карточке в шаблоне
+// Получаем ссылки на элементы модалки для просмотра увеличенных изображений
+const imgBigPopap = document.querySelector(".img-card-big");
+const modalImageElement = imgBigPopap.querySelector(".popup__image");
+const captionTextImg = imgBigPopap.querySelector(".popup__caption");
 
 // Обработчик отправки формы "редактировать профиль"
 function formSubmitHandler(evt) {
