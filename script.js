@@ -37,7 +37,6 @@ const clickProfileAdd = document.querySelector(".profile__add"); //находи�
 const newItemForm = document.querySelector(".new-item-form"); //находим попап "добавить новое место"
 const profileName = document.querySelector(".profile__name"); //находим имя h1
 const profileSubname = document.querySelector(".profile__subname"); //находим профессию
-
 //карточки
 const cardsList = document.querySelector(".elements-grid"); //находим список карточек
 const cardTemplate = document.querySelector(".cards-temlate").content; //находим шаблон карточки
@@ -55,7 +54,7 @@ function formSubmitHandler(evt) {
     const jobInput = document.querySelector("[name=jobInput]").value;
     profileName.textContent = nameInput;
     profileSubname.textContent = jobInput;
-    inputCleaning();
+    popupProfileEdit.querySelector("form").reset();
 }
 popupProfileEdit.addEventListener("submit", formSubmitHandler);
 // Обработчик отправки формы "новое место"
@@ -69,11 +68,8 @@ function formSubmitMesto(evt) {
         link,
         alt: name,
     };
-    point.name = name;
-    point.link = link;
-    point.alt = name;
-    newItem(point);
-    inputCleaning();
+    renderCard(point);
+    newItemForm.querySelector("form").reset();
 }
 newItemForm.addEventListener("submit", formSubmitMesto);
 
@@ -143,16 +139,8 @@ function createCard(point) {
         });
     return newItem;
 }
-
-// очистить inputы в форме
-function inputCleaning() {
-    const inputFields = document.querySelectorAll("input");
-    inputFields.forEach((item) => {
-        item.value = "";
-    });
-}
 //Выводим новую карточку
-function newItem(point) {
+function renderCard(point) {
     const newItem = createCard(point);
     cardsList.prepend(newItem);
 }
