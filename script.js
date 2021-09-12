@@ -37,6 +37,7 @@ const clickProfileAdd = document.querySelector(".profile__add"); //находи�
 const newItemForm = document.querySelector(".new-item-form"); //находим попап "добавить новое место"
 const profileName = document.querySelector(".profile__name"); //находим имя h1
 const profileSubname = document.querySelector(".profile__subname"); //находим профессию
+
 //карточки
 const cardsList = document.querySelector(".elements-grid"); //находим список карточек
 const cardTemplate = document.querySelector(".cards-temlate").content; //находим шаблон карточки
@@ -142,6 +143,7 @@ function createCard(point) {
         });
     return newItem;
 }
+
 // очистить inputы в форме
 function inputCleaning() {
     const inputFields = document.querySelectorAll("input");
