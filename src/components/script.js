@@ -111,6 +111,15 @@ imgBigPopap.addEventListener("click", (event) => {
         closePopup(imgBigPopap);
 });
 
+//закрытие попапа по нажатию кнопки esc на клавиатуре
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+        closePopup(imgBigPopap);
+        closePopup(newItemForm);
+        closePopup(popupProfileEdit);
+    }
+});
+
 //функция для инициализации карточки
 function createCard(point) {
     const newItem = cardTemplate.querySelector(".card").cloneNode(true);
@@ -148,4 +157,16 @@ function renderCard(point) {
 primordialCards.forEach(function newItem(point) {
     const newItem = createCard(point);
     cardsList.prepend(newItem);
+});
+//обработчик лайка
+// выберем все кнопки лайка
+const cardLikes = cardsList.querySelectorAll(".card__like");
+
+// пройдём по ним
+
+cardLikes.forEach((cardLikes) => {
+    // добавим каждой обработчик лайка
+    cardLikes.addEventListener("click", function (evt) {
+        console.log;
+    });
 });
