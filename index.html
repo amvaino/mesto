@@ -43,29 +43,40 @@
                 </template>
             </main>
             <footer class="footer">
-                <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+                <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
             </footer>
         </div>
         <!-- popup "Всплывающее окно Редактировать профиль"-->
-        <section class="popup" aria-label="Всплывающее окно">
+        <section
+            class="popup"
+            aria-label="Всплывающее окно Редактировать профиль"
+        >
             <div class="popup__container">
                 <button type="reset" class="popup__close"></button>
                 <h3 class="popup__title">Редактировать профиль</h3>
-                <form class="popup__form" name="edit-profile">
+                <form class="popup__form" name="edit-profile" novalidate>
                     <input
-                        class="popup__name"
+                        required
+                        class="popup__form-input"
                         name="nameInput"
                         type="text"
                         placeholder="Имя"
                         value="Жак-Ив Кусто"
+                        minlength="3"
+                        maxlength="30"
                     />
+                    <span class="popup__span-error" id="nameInput-error"></span>
                     <input
-                        class="popup__name"
+                        required
+                        class="popup__form-input"
                         name="jobInput"
                         type="text"
                         placeholder="Профессия"
                         value="Исследователь океана"
+                        minlength="3"
+                        maxlength="50"
                     />
+                    <span class="popup__span-error" id="jobInput-error"></span>
                     <button type="submit" class="popup__button">
                         Сохранить
                     </button>
@@ -82,24 +93,29 @@
                 <h3 class="popup__title">Новое место</h3>
                 <form class="popup__form" name="formNewMesto" novalidate>
                     <input
-                        class="popup__name"
+                        required
+                        class="popup__form-input"
                         name="mesto-title"
                         type="text"
                         placeholder="Название"
-                    />
-                    <p class="popup__form-error">Вы пропустили это поле.</p>
+                        minlength="2"
+                        maxlength="30"
+                    /><span
+                        class="popup__span-error"
+                        id="mesto-title-error"
+                    ></span>
                     <input
-                        class="popup__name"
+                        required
+                        class="popup__form-input"
                         name="mesto-link"
                         type="url"
                         placeholder="Ссылка на кртинку"
-                    />
-                    <button
-                        type="submit"
-                        class="popup__button popup__botton_disabled"
-                    >
-                        Создать
-                    </button>
+                        minlength="8"
+                    /><span
+                        class="popup__span-error"
+                        id="mesto-link-error"
+                    ></span>
+                    <button type="submit" class="popup__button">Создать</button>
                 </form>
             </div>
         </section>
@@ -122,6 +138,6 @@
                 </div>
             </div>
         </section>
-        <script src="./src/components/script.js"></script>
+        <script type="module" src="./src/components/script.js"></script>
     </body>
 </html>

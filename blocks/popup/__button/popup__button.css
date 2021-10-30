@@ -16,6 +16,14 @@
 .popup__button:hover {
     opacity: 0.8;
 }
+
+.popup__button:disabled {
+    background: #ffffff;
+    border: 1px solid #000000;
+    cursor: not-allowed;
+    color: #000000;
+    opacity: 0.15;
+}
 @media screen and (max-width: 882px) {
     .popup__button {
         width: 238px;

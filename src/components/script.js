@@ -1,3 +1,4 @@
+import { enableValidation } from "./validate.js";
 //массив карточек
 const primordialCards = [
     {
@@ -47,9 +48,11 @@ const imgBigPopap = document.querySelector(".img-card-big");
 const modalImageElement = imgBigPopap.querySelector(".popup__image");
 const captionTextImg = imgBigPopap.querySelector(".popup__caption");
 const formNewMesto = document.forms.formNewMesto; //форма "Новое место"
+//const formError = formElement.querySelector(`.${formInput.id}-error`);
 
 // Обработчик отправки формы "редактировать профиль"
 function formSubmitHandler(evt) {
+    // Отменим стандартное поведение
     evt.preventDefault();
     const nameInput = document.querySelector("[name=nameInput]").value;
     const jobInput = document.querySelector("[name=jobInput]").value;
@@ -60,6 +63,7 @@ function formSubmitHandler(evt) {
 popupProfileEdit.addEventListener("submit", formSubmitHandler);
 // Обработчик отправки формы "новое место"
 function formSubmitMesto(evt) {
+    // Отменим стандартное поведение
     evt.preventDefault();
     //Получения введенных значений в поля
     const name = document.querySelector("[name=mesto-title]").value;
@@ -172,3 +176,5 @@ cardLikes.forEach((cardLikes) => {
         console.log;
     });
 });
+// вызваем функцию валидации input
+enableValidation();
