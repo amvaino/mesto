@@ -1,4 +1,3 @@
-console.log("все ок");
 const config = {
     formSelector: ".popup__form",
     inputSelector: ".popup__form-input",
@@ -35,7 +34,6 @@ const toggleButtonState = (buttonElement, inputList) => {
 };
 const checkInputValidity = (inputElement) => {
     // если валидно
-    console.dir(inputElement.validity);
     if (inputElement.validity.valid) {
         // скрыть ошибку
         hideInputError(inputElement);
@@ -52,10 +50,13 @@ const setEventListeners = (formElement) => {
 
     // найти все инпуты
     const inputList = Array.from(
-        document.querySelectorAll(config.inputSelector)
+        formElement.querySelectorAll(config.inputSelector)
     );
     // найти кнопку
-    const submitButton = document.querySelector(config.buttonSelector);
+    const submitButton = formElement.querySelector(config.buttonSelector);
+    // установить начальное состояние кнопки
+    toggleButtonState(submitButton, inputList);
+
     inputList.forEach((inputElement) => {
         // добавить слушателей для каждого инпута
         inputElement.addEventListener("input", () => {
@@ -66,8 +67,6 @@ const setEventListeners = (formElement) => {
             toggleButtonState(submitButton, inputList);
         });
     });
-    // установить начальное состояние кнопки
-    toggleButtonState(submitButton, inputList);
 };
 export const enableValidation = () => {
     // найти все формы и создать из них массив
