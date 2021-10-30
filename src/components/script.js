@@ -46,6 +46,7 @@ const cardImg = cardElement.querySelector(".card__image"); //находим ка
 const imgBigPopap = document.querySelector(".img-card-big");
 const modalImageElement = imgBigPopap.querySelector(".popup__image");
 const captionTextImg = imgBigPopap.querySelector(".popup__caption");
+const formNewMesto = document.forms.formNewMesto; //форма "Новое место"
 
 // Обработчик отправки формы "редактировать профиль"
 function formSubmitHandler(evt) {
@@ -69,7 +70,8 @@ function formSubmitMesto(evt) {
         alt: name,
     };
     renderCard(point);
-    newItemForm.querySelector("form").reset();
+    formNewMesto.reset(); //очистка всей формы "Новое место" после submit
+    //newItemForm.querySelector("form").reset();
 }
 newItemForm.addEventListener("submit", formSubmitMesto);
 

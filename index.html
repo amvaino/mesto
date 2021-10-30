@@ -80,7 +80,7 @@
             <div class="popup__container">
                 <button type="reset" class="popup__close"></button>
                 <h3 class="popup__title">Новое место</h3>
-                <form class="popup__form" name="edit-profile">
+                <form class="popup__form" name="formNewMesto" novalidate>
                     <input
                         class="popup__name"
                         name="mesto-title"
@@ -94,8 +94,11 @@
                         type="url"
                         placeholder="Ссылка на кртинку"
                     />
-                    <button type="submit" class="popup__button">
-                        Сохранить
+                    <button
+                        type="submit"
+                        class="popup__button popup__botton_disabled"
+                    >
+                        Создать
                     </button>
                 </form>
             </div>
