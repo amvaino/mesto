@@ -1,6 +1,5 @@
-import { enableValidation } from "./validate.js";
 //массив карточек
-const primordialCards = [
+export const primordialCards = [
     {
         name: "Архыз",
         link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
@@ -176,5 +175,3 @@ cardLikes.forEach((cardLikes) => {
         console.log;
     });
 });
-// вызваем функцию валидации input
-enableValidation();

@@ -1,0 +1,19 @@
+{
+  "name": "mesto-project",
+  "version": "1.0.0",
+  "description": "_курс Веб-разработчик плюс от Яндекс.Практикум_",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amvaino/mesto-project.git"
+  },
+  "author": "Vaino Alexander",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amvaino/mesto-project/issues"
+  },
+  "homepage": "https://github.com/amvaino/mesto-project#readme"
+}
