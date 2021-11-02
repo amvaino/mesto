@@ -1,43 +1,10 @@
-import './index.css';
-//массив карточек
-const arkhyzImage = new URL('https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg', import.meta.url);
-const chelyabinskImage = new URL('https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg', import.meta.url);
-const ivanovoImage = new URL('https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg', import.meta.url);
-const kamchatkaImage = new URL('https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg', import.meta.url);
-const kholmogorskyImage = new URL('https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg', import.meta.url);
-const baikalImage = new URL('https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg', import.meta.url);
-export const primordialCards = [
-    {
-        name: "Архыз",
-        link: arkhyzImage,
-        alt: "Архыз",
-    },
-    {
-        name: "Челябинская область",
-        link: chelyabinskImage,
-        alt: "Челябинская область",
-    },
-    {
-        name: "Иваново",
-        link: ivanovoImage,
-        alt: "Иваново",
-    },
-    {
-        name: "Камчатка",
-        link: kamchatkaImage,
-        alt: "Камчатка",
-    },
-    {
-        name: "Холмогорский район",
-        link: kholmogorskyImage,
-        alt: "Холмогорский район",
-    },
-    {
-        name: "Байкал",
-        link: baikalImage,
-        alt: "Байкал",
-    },
-];
+import './pages/index.css'; // добавьте импорт главного файла стилей
+import { enableValidation } from "./components/validate.js";
+// вызваем функцию валидации input
+enableValidation();
+// вызываем массив карточек
+import { primordialCards } from "./components/card.js" 
+
 const clickProfileEdit = document.querySelector(".profile__edit"); //находим кнопку "редактировать профиль"
 const popupProfileEdit = document.querySelector(".popup"); //находим попап "редактировать профиль"
 const clickProfileAdd = document.querySelector(".profile__add"); //находим кнопку "добавить новое место"
