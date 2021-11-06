@@ -60,5 +60,3 @@ export const mestoLink = formNewMesto.querySelector("[name=mesto-link]");
 export const formProfileEdit = popupProfileEdit.querySelector(config.formSelector);
 // выберем все кнопки лайка
 export const cardLikes = cardsList.querySelectorAll(".card__like");
-export const newItem = cardTemplate.querySelector(".card").cloneNode(true);
-export const cardImage = newItem.querySelector(".card__image")
