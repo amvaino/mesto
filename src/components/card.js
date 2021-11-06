@@ -1,32 +1,41 @@
-export const primordialCards = [
-    {
-        name: "Архыз",
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
-        alt: "Архыз",
-    },
-    {
-        name: "Челябинская область",
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
-        alt: "Челябинская область",
-    },
-    {
-        name: "Иваново",
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
-        alt: "Иваново",
-    },
-    {
-        name: "Камчатка",
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
-        alt: "Камчатка",
-    },
-    {
-        name: "Холмогорский район",
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
-        alt: "Холмогорский район",
-    },
-    {
-        name: "Байкал",
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
-        alt: "Байкал",
-    },
-];
+import { cardTemplate, cardLikes, modalImageElement, captionTextImg, imgBigPopap, cardsList } from './constants.js'
+import { openPopup } from './modal.js';
+//функция для инициализации карточки
+export function createCard(point) {
+    const newItem = cardTemplate.querySelector(".card").cloneNode(true);
+    //обрабатываем лайк
+    newItem
+        .querySelector(".card__like")
+        .addEventListener("click", function (evt) {
+            evt.target.classList.toggle("card__like_active");
+        });
+    //удаляем карточку
+    const deleteButton = newItem.querySelector(".card__delete-icon");
+    deleteButton.addEventListener("click", function () {
+        newItem.remove();
+    });
+    newItem.querySelector(".card__title").textContent = point.name;
+    newItem.querySelector(".card__image").src = point.link;
+    newItem.querySelector(".card__image").alt = point.name;
+    //клик по картинке
+    newItem
+        .querySelector(".card__image")
+        .addEventListener("click", function (evt) {
+            modalImageElement.src = point.link;
+            modalImageElement.alt = point.alt;
+            captionTextImg.textContent = point.alt;
+            openPopup(imgBigPopap);
+        });
+    return newItem;
+}
+cardLikes.forEach((cardLikes) => {
+    // добавим каждой обработчик лайка
+    cardLikes.addEventListener("click", function (evt) {
+        console.log;
+    });
+});
+//Выводим новую карточку
+export function renderCard(point) {
+    const newItem = createCard(point);
+    cardsList.prepend(newItem);
+}

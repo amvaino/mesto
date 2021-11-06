@@ -1,9 +1,4 @@
-const config = {
-    formSelector: ".popup__form",
-    inputSelector: ".popup__form-input",
-    buttonSelector: ".popup__button",
-    inputErrorClass: "popup__form-error",
-};
+import { config } from './constants.js';
 
 const isFormValid = (inputList) => {
     //проверка валидности инпутов
