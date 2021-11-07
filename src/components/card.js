@@ -28,14 +28,3 @@ export function createCard(point) {
         });
     return newItem;
 }
-cardLikes.forEach((cardLikes) => {
-    // добавим каждой обработчик лайка
-    cardLikes.addEventListener("click", function (evt) {
-        console.log;
-    });
-});
-//Выводим новую карточку
-export function renderCard(point) {
-    const newItem = createCard(point);
-    cardsList.prepend(newItem);
-}
