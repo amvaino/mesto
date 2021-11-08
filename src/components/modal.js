@@ -20,8 +20,8 @@ function removeListener() {
 }
 //функция закрытия попапа по нажатию esc  
 function closePopupClickEsc(event) {
-    const openedPopup = document.querySelector('.popup_opened');
     if (event.code === 'Escape') {
-      closePopup(openedPopup);
+        const openedPopup = document.querySelector('.popup_opened');
+        closePopup(openedPopup);
     }
 }
