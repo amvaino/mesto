@@ -58,5 +58,7 @@ export const jobInput = document.querySelector("[name=jobInput]")
 export const mestoTitle = formNewMesto.querySelector("[name=mesto-title]");
 export const mestoLink = formNewMesto.querySelector("[name=mesto-link]");
 export const formProfileEdit = popupProfileEdit.querySelector(config.formSelector);
+export const submitBtnFormProfileEdit = popupProfileEdit.querySelector(config.buttonSelector);
+export const submitBtnNewItemForm = newItemForm.querySelector(config.buttonSelector);
 // выберем все кнопки лайка
 export const cardLikes = cardsList.querySelectorAll(".card__like");

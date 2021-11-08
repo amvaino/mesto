@@ -2,7 +2,8 @@ import './index.css';
 import { createCard } from "../components/card.js";
 import { enableValidation } from "../components/validate.js";
 import { primordialCards, clickProfileEdit, popupProfileEdit, clickProfileAdd, newItemForm, cardsList,
-      imgBigPopap, config, mestoTitle, mestoLink } from '../components/constants.js';
+      imgBigPopap, profileName, nameInput, jobInput, profileSubname, formProfileEdit, mestoTitle, mestoLink,
+       submitBtnFormProfileEdit, submitBtnNewItemForm, formNewMesto } from '../components/constants.js';
 import { openPopup, closePopup } from "../components/modal.js";
 // вызваем функцию валидации input
 enableValidation();
@@ -13,13 +14,13 @@ newItemForm.addEventListener("submit", handleMestoForm);
 clickProfileEdit.addEventListener("click", () => {
     openPopup(popupProfileEdit);
     //отключаем кнопку перед открытием модального окна
-    popupProfileEdit.querySelector(config.buttonSelector).disabled = true;
+    submitBtnFormProfileEdit.disabled = true;
 });
 
 clickProfileAdd.addEventListener("click", () => {
     openPopup(newItemForm);
     //отключаем кнопку перед открытием модального окна
-    newItemForm.querySelector(config.buttonSelector).disabled = true;
+    submitBtnNewItemForm.disabled = true;
 });
 
 popupProfileEdit.addEventListener('click', closePopupByClick);
