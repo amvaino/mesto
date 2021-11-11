@@ -42,9 +42,12 @@ export const popup = document.querySelectorAll(".popup")
 export const formNewMesto = document.forms.formNewMesto //форма "Новое место"
 export const clickProfileEdit = document.querySelector(".profile__edit") //находим кнопку "редактировать профиль"
 export const popupProfileEdit = document.querySelector(".popup-edit-profile") //находим попап "редактировать профиль"
+export const clickButtonAvatarEdit = document.querySelector(".profile__avatar-button") //находим кнопку "редактировать аватар"
+export const popupAvatar = document.querySelector(".popup-avatar") //находим попап "редактировать аватар"
 export const clickProfileAdd = document.querySelector(".profile__add") //находим кнопку "добавить новое место"
 export const newItemForm = document.querySelector(".new-item-form") //находим попап "добавить новое место"
 export const profileName = document.querySelector(".profile__name") //находим имя h1
+export const profileAvatar = document.querySelector(".profile__avatar") //находим аватар
 export const profileSubname = document.querySelector(".profile__subname") //находим профессию
 //карточки
 export const cardsList = document.querySelector(".elements-grid") //находим список карточек

@@ -1,4 +1,4 @@
-import { popupProfileEdit, newItemForm, imgBigPopap } from './constants.js';
+//import { popupProfileEdit, newItemForm, imgBigPopap } from './constants.js';
 //ПОПАПы открытие-закрытие
 export function openPopup(popup) {
     popup.classList.add("popup_opened");

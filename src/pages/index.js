@@ -1,12 +1,45 @@
 import './index.css';
 import { createCard } from "../components/card.js";
 import { enableValidation } from "../components/validate.js";
-import { primordialCards, clickProfileEdit, popupProfileEdit, clickProfileAdd, newItemForm, cardsList,
-      imgBigPopap, profileName, nameInput, jobInput, profileSubname, formProfileEdit, mestoTitle, mestoLink,
-       submitBtnFormProfileEdit, submitBtnNewItemForm, formNewMesto } from '../components/constants.js';
+import {
+    primordialCards,
+    clickProfileEdit,
+    popupProfileEdit,
+    clickProfileAdd,
+    newItemForm,
+    cardsList,
+    imgBigPopap,
+    profileName,
+    nameInput,
+    jobInput,
+    profileSubname,
+    profileAvatar,
+    formProfileEdit,
+    mestoTitle,
+    mestoLink,
+    submitBtnFormProfileEdit,
+    submitBtnNewItemForm,
+    formNewMesto,
+    clickButtonAvatarEdit,
+    popupAvatar
+} from '../components/constants.js';
 import { openPopup, closePopup } from "../components/modal.js";
+import { getUser, deleteCard } from "../components/api.js";
 // вызваем функцию валидации input
 enableValidation();
+
+function showUser() {
+    getUser()
+      .then((data) => {
+        profileName.textContent = data.name;
+        profileSubname.textContent = data.about;
+        profileAvatar.src = data.avatar;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  showUser();
 
 popupProfileEdit.addEventListener("submit",  handleProfileForm);
 newItemForm.addEventListener("submit", handleMestoForm);
@@ -23,9 +56,16 @@ clickProfileAdd.addEventListener("click", () => {
     submitBtnNewItemForm.disabled = true;
 });
 
+clickButtonAvatarEdit.addEventListener("click", () => {
+    openPopup(popupAvatar);
+    //отключаем кнопку перед открытием модального окна
+    submitBtnNewItemForm.disabled = true;
+});
+
 popupProfileEdit.addEventListener('click', closePopupByClick);
 newItemForm.addEventListener('click', closePopupByClick);
 imgBigPopap.addEventListener('click', closePopupByClick);
+popupAvatar.addEventListener('click', closePopupByClick);
 
 function closePopupByClick(event) {
     if(event.target.classList.contains('popup__close') ||
@@ -56,6 +96,7 @@ function handleMestoForm(evt) {
         name,
         link,
         alt: name,
+        //id,
     };
     renderCard(point);
     closePopup(newItemForm);

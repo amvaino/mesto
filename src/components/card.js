@@ -1,8 +1,11 @@
 import { cardTemplate, cardLikes, modalImageElement, captionTextImg, imgBigPopap, cardsList } from './constants.js'
 import { openPopup } from './modal.js';
+import { cards } from './api.js'
+
 //функция для инициализации карточки
 export function createCard(point) {
     const newItem = cardTemplate.querySelector(".card").cloneNode(true);
+    const cardLikes = cardTemplate.querySelector(".card__likes");
     //обрабатываем лайк
     newItem
         .querySelector(".card__like")
@@ -28,3 +31,8 @@ export function createCard(point) {
         });
     return newItem;
 }
+cards().then((data) => {
+    data.forEach(function (element) {
+        cardLikes.textContent = element.likes.length;
+    });
+  });
