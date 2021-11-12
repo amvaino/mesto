@@ -1,6 +1,6 @@
 import { cardTemplate, cardLikes, modalImageElement, captionTextImg, imgBigPopap, cardsList } from './constants.js'
 import { openPopup } from './modal.js';
-import { cards } from './api.js'
+//import { getCards } from './api.js'
 
 //функция для инициализации карточки
 export function createCard(point) {
@@ -31,8 +31,8 @@ export function createCard(point) {
         });
     return newItem;
 }
-cards().then((data) => {
+/* getCards().then((data) => {
     data.forEach(function (element) {
         cardLikes.textContent = element.likes.length;
     });
-  });
+  }); */

@@ -21,10 +21,14 @@ import {
     submitBtnNewItemForm,
     formNewMesto,
     clickButtonAvatarEdit,
-    popupAvatar
+    popupAvatar,
+    avatarLinkInput,
+    submitBtnNewAvatar,
+    //profileAvatar,
+    profileAvatarImg
 } from '../components/constants.js';
 import { openPopup, closePopup } from "../components/modal.js";
-import { getUser, deleteCard } from "../components/api.js";
+import { getUser, deleteCard, editProfile, editAvatar, getCards } from "../components/api.js";
 // вызваем функцию валидации input
 enableValidation();
 
@@ -33,7 +37,7 @@ function showUser() {
       .then((data) => {
         profileName.textContent = data.name;
         profileSubname.textContent = data.about;
-        profileAvatar.src = data.avatar;
+        profileAvatarImg.src = data.avatar;
       })
       .catch((err) => {
         console.log(err);
@@ -43,6 +47,8 @@ function showUser() {
 
 popupProfileEdit.addEventListener("submit",  handleProfileForm);
 newItemForm.addEventListener("submit", handleMestoForm);
+popupAvatar.addEventListener("submit", handleAvatarForm);
+
 
 clickProfileEdit.addEventListener("click", () => {
     openPopup(popupProfileEdit);
@@ -59,7 +65,7 @@ clickProfileAdd.addEventListener("click", () => {
 clickButtonAvatarEdit.addEventListener("click", () => {
     openPopup(popupAvatar);
     //отключаем кнопку перед открытием модального окна
-    submitBtnNewItemForm.disabled = true;
+    submitBtnNewAvatar.disabled = true;
 });
 
 popupProfileEdit.addEventListener('click', closePopupByClick);
@@ -80,11 +86,27 @@ primordialCards.forEach(function newItem(point) {
     const newItem = createCard(point);
     cardsList.prepend(newItem);
 });
+//Выводим массив карточек
+/* getUser()
+  .then((user) => {
+    renderCard(user);
+
+    //return primordialCard(user._id);
+  }) */
+  /* .then(hideSpinner)
+  .catch((err) => alert('Что-то пошло не так... :(')); */
+
+/* getCards.forEach(function newItem(point) {
+    const newItem = createCard(point);
+    cardsList.prepend(newItem);
+}); */
+
 //Выводим новую карточку
 function renderCard(point) {
     const newItem = createCard(point);
     cardsList.prepend(newItem);
 }
+
 // Обработчик отправки формы "новое место"
 function handleMestoForm(evt) {
     // Отменим стандартное поведение
@@ -102,12 +124,30 @@ function handleMestoForm(evt) {
     closePopup(newItemForm);
     formNewMesto.reset(); //очистка всей формы "Новое место" после submit
 }
+
 // Обработчик отправки формы "редактировать профиль"
 export function handleProfileForm(evt) {
     // Отменим стандартное поведение
     evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileSubname.textContent = jobInput.value;
+    console.log(profileName)
+    editProfile({
+        name: nameInput.value,
+        about: jobInput.value,
+      });
     formProfileEdit.reset(); //очистка всей формы "Редактировать профиль" после submit
     closePopup(popupProfileEdit);
+}
+
+// Обработчик отправки формы "сменить аватар"
+export function handleAvatarForm(evt) {
+    // Отменим стандартное поведение
+    evt.preventDefault();
+    profileAvatarImg.src = avatarLinkInput.value;
+    editAvatar({
+        avatar: avatarLinkInput.value,
+      });
+      formNewAvatar.reset(); //очистка всей формы "Редактировать профиль" после submit
+    closePopup(popupAvatar);
 }
