@@ -1,0 +1,22 @@
+.profile__avatar-button {
+    all: unset;
+    height: 120px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 120px;
+    cursor: pointer;
+}
+.profile__avatar-button:hover {
+    background: rgba(0,0,0,.7);
+    background-image: url(../../../images/pencil.svg);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: 26px;
+}
+@media screen and (max-width: 882px) {
+    .profile__avatar-button {
+        width: 100%;
+        height: 100%;
+    }
+}
