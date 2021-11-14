@@ -1,5 +1,5 @@
 // массив изначальных карточек
-export const primordialCards = [
+/* export const primordialCards = [
     {
         name: "Архыз",
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
@@ -30,7 +30,7 @@ export const primordialCards = [
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
         alt: "Байкал",
     },
-]
+] */
 // поля форм попапов
 export const config = {
     formSelector: ".popup__form",
@@ -38,6 +38,14 @@ export const config = {
     buttonSelector: ".popup__button",
     inputErrorClass: "popup__form-error",
 }
+export const renderUserInfo = (name, job) => {
+    profileName.textContent = name;
+    profileSubname.textContent = job;
+  }
+export const renderUserAvatar = (name, avatar) => {
+    profileAvatarImg.src = avatar;
+    profileAvatarImg.alt = `Аватар ${name}`;
+}  
 export const popup = document.querySelectorAll(".popup")
 export const formNewMesto = document.forms.formNewMesto //форма "Новое место"
 export const clickProfileEdit = document.querySelector(".profile__edit") //находим кнопку "редактировать профиль"
@@ -68,4 +76,5 @@ export const submitBtnFormProfileEdit = popupProfileEdit.querySelector(config.bu
 export const submitBtnNewItemForm = newItemForm.querySelector(config.buttonSelector);
 export const submitBtnNewAvatar = formNewAvatar.querySelector(config.buttonSelector);
 // выберем все кнопки лайка
-export const cardLikes = cardsList.querySelectorAll(".card__like");
+export const cardLikeButtom = cardsList.querySelectorAll(".card__like");
+//export const cardLikesCount = newItem.querySelector(".card__likes");

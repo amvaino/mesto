@@ -5,59 +5,85 @@ const config = {
     'Content-Type': 'application/json',
   },
 };
-function getUser() {
+//проверка ответа
+const checkResponse = res => {
+    if (res.ok) return res.json();
+    return Promise.reject(`Ошибка: ${res.status}`);
+}
+//получить инф-ию о пользователе
+function getUserInfo() {
     return fetch(`${config.serverUrl}/users/me`, {
         headers: config.headers,
-        }).then((res) => {
-            if (res.ok) {
-            return res.json();
-        }
-    return Promise.reject(`Ошибка: ${res.status}`);
-    });
+        }).then(checkResponse);
 }
-
+//получить профиль
 function editProfile(edit) {
-    fetch(`${config.serverUrl}/users/me`, {
+    return fetch(`${config.serverUrl}/users/me`, {
         method: "PATCH",
         headers: config.headers,
-        "Content-Type": "application/json",
         body: JSON.stringify({
         name: edit.name,
         about: edit.about,
         }),
     });
 }
-function editAvatar(user) {
-    fetch(`${config.serverUrl}/users/me/avatar`, {
+//получить аватар
+function editAvatar(edit) {
+    return fetch(`${config.serverUrl}/users/me/avatar`, {
         method: "PATCH",
         headers: config.headers,
-        "Content-Type": "application/json",
         body: JSON.stringify({
-        avatar: user.avatar,
+        avatar: edit.avatar,
         }),
-    });
+    }).then(checkResponse)
 }
-
-/* const getCards = () => {
-    return fetch(`${config.serverUrl}/cards/`, { method: 'GET', ...config }).then(checkIfResOk);
-  };
-
-  function deleteCard(cardId) {
-    return fetch(`${config.serverUrl}/cards/${cardId}`, {
-      method: "DELETE",
+//получить карточки с сервера
+const getCards = () => {
+    return fetch(`${config.serverUrl}/cards`, {
+        method: "GET",
+        headers: config.headers,
+        }).then(checkResponse)
+};
+//сохраним новую карточку на сервер
+function editCard(point) {
+    return fetch(`${config.serverUrl}/cards`, {
+        method: "POST",
+        headers: config.headers,
+        body: JSON.stringify({
+        name: point.name,
+        link: point.link,
+        alt: point.name,
+        }),
+    }).then(checkResponse)
+};
+//получить лайки с сервер
+const getLike = (cardId) => {
+    return fetch(`${config.serverUrl}/cards/likes/${cardId}`, {
+      method: "PUT",
       headers: config.headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
-  } */
-  export {
-    getUser,
-    //getCards,
-    //deleteCard,
+    }).then(checkResponse);
+  };
+//удалить лайк с сервера
+const removeLike = (cardId) => {
+    return fetch(`${config.serverUrl}/cards/likes/${cardId}`, {
+      method: 'DELETE',
+      headers: config.headers
+    }).then(checkResponse);
+  }
+//удалить карточку с сервера
+const deleteCard = (cardId) => {
+    return fetch(`${config.serverUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: config.headers
+    }).then(checkResponse);
+  }  
+export {
+    getUserInfo,
+    getCards,
     editProfile,
     editAvatar,
-
-  };
+    editCard,
+    getLike,
+    removeLike,
+    deleteCard
+};

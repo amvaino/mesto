@@ -2,48 +2,37 @@ import './index.css';
 import { createCard } from "../components/card.js";
 import { enableValidation } from "../components/validate.js";
 import {
-    primordialCards,
-    clickProfileEdit,
-    popupProfileEdit,
-    clickProfileAdd,
-    newItemForm,
-    cardsList,
-    imgBigPopap,
-    profileName,
-    nameInput,
-    jobInput,
-    profileSubname,
-    profileAvatar,
-    formProfileEdit,
-    mestoTitle,
-    mestoLink,
-    submitBtnFormProfileEdit,
-    submitBtnNewItemForm,
-    formNewMesto,
-    clickButtonAvatarEdit,
-    popupAvatar,
     avatarLinkInput,
+    cardsList,
+    clickButtonAvatarEdit,
+    clickProfileAdd,
+    clickProfileEdit,
+    formNewMesto,
+    formProfileEdit,
+    imgBigPopap,
+    jobInput,
+    mestoLink,
+    mestoTitle,
+    nameInput,
+    newItemForm,
+    popupAvatar,
+    popupProfileEdit,
+    profileAvatarImg,
+    profileName,
+    profileSubname,
+    renderUserAvatar,
+    renderUserInfo,
+    submitBtnFormProfileEdit,
     submitBtnNewAvatar,
-    //profileAvatar,
-    profileAvatarImg
+    submitBtnNewItemForm,
+    //primordialCards,
 } from '../components/constants.js';
 import { openPopup, closePopup } from "../components/modal.js";
-import { getUser, deleteCard, editProfile, editAvatar, getCards } from "../components/api.js";
+import { errorOutput } from "../components/utils.js";
+import { getUserInfo, editProfile, editAvatar, getCards, editCard } from "../components/api.js";
+
 // вызваем функцию валидации input
 enableValidation();
-
-function showUser() {
-    getUser()
-      .then((data) => {
-        profileName.textContent = data.name;
-        profileSubname.textContent = data.about;
-        profileAvatarImg.src = data.avatar;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-  showUser();
 
 popupProfileEdit.addEventListener("submit",  handleProfileForm);
 newItemForm.addEventListener("submit", handleMestoForm);
@@ -82,29 +71,34 @@ function closePopupByClick(event) {
 }
 
 //Выводим массив карточек
-primordialCards.forEach(function newItem(point) {
-    const newItem = createCard(point);
-    cardsList.prepend(newItem);
-});
-//Выводим массив карточек
-/* getUser()
-  .then((user) => {
-    renderCard(user);
-
-    //return primordialCard(user._id);
-  }) */
-  /* .then(hideSpinner)
-  .catch((err) => alert('Что-то пошло не так... :(')); */
-
-/* getCards.forEach(function newItem(point) {
+/* primordialCards.forEach(function newItem(point) {
     const newItem = createCard(point);
     cardsList.prepend(newItem);
 }); */
 
+// тест
+const userPromise = getUserInfo();
+const cardPromise = getCards();
+
+Promise.all([userPromise, cardPromise])
+  .then(res => {
+    getUserInfo._id = res[0]._id;
+    renderUserInfo(res[0].name, res[0].about);
+    renderUserAvatar(res[0].name, res[0].avatar);
+
+    res[1].reverse().forEach(function newItem(point) {
+        const newItem = createCard(point);
+        cardsList.prepend(newItem);
+    });
+  })
+  .catch(err => errorOutput(err));
+
+  
+
 //Выводим новую карточку
 function renderCard(point) {
     const newItem = createCard(point);
-    cardsList.prepend(newItem);
+    cardsList.prepend(newItem)
 }
 
 // Обработчик отправки формы "новое место"
@@ -118,10 +112,10 @@ function handleMestoForm(evt) {
         name,
         link,
         alt: name,
-        //id,
     };
     renderCard(point);
     closePopup(newItemForm);
+    editCard(point);
     formNewMesto.reset(); //очистка всей формы "Новое место" после submit
 }
 
@@ -131,7 +125,6 @@ export function handleProfileForm(evt) {
     evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileSubname.textContent = jobInput.value;
-    console.log(profileName)
     editProfile({
         name: nameInput.value,
         about: jobInput.value,
