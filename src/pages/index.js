@@ -1,7 +1,8 @@
 import './index.css';
 import { createCard } from "../components/card.js";
-import { enableValidation } from "../components/validate.js";
+import { enableValidation, toggleButtonState } from "../components/validate.js";
 import {
+    config,
     avatarLinkInput,
     cardsList,
     clickButtonAvatarEdit,
@@ -14,39 +15,46 @@ import {
     mestoLink,
     mestoTitle,
     nameInput,
-    newItemForm,
+    newItemPopup,
     popupAvatar,
     popupProfileEdit,
     profileAvatarImg,
     profileName,
     profileSubname,
-    renderUserAvatar,
-    renderUserInfo,
     submitBtnFormProfileEdit,
     submitBtnNewAvatar,
     submitBtnNewItemForm,
-    //primordialCards,
-} from '../components/constants.js';
-import { openPopup, closePopup } from "../components/modal.js";
-import { errorOutput } from "../components/utils.js";
-import { getUserInfo, editProfile, editAvatar, getCards, editCard } from "../components/api.js";
+    submitProfileButton } from '../components/constants.js';
+import { openPopup, closePopup, closePopupByClick } from "../components/modal.js";
+import { renderUserInfo, renderUserAvatar, showErrorOutput } from "../components/utils.js";
+import { getUserInfo, dataProfile, dataAvatar, getCards, addNewCard } from "../components/api.js";
+
 
 // вызваем функцию валидации input
-enableValidation();
+enableValidation(config);
 
 popupProfileEdit.addEventListener("submit",  handleProfileForm);
-newItemForm.addEventListener("submit", handleMestoForm);
+newItemPopup.addEventListener("submit", handleMestoForm);
 popupAvatar.addEventListener("submit", handleAvatarForm);
 
+function setValuesToFormProfileUser() {
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileSubname.textContent;
+    submitBtnFormProfileEdit.disabled = false;
+  }
 
 clickProfileEdit.addEventListener("click", () => {
+    setValuesToFormProfileUser();
     openPopup(popupProfileEdit);
     //отключаем кнопку перед открытием модального окна
-    submitBtnFormProfileEdit.disabled = true;
+    //submitBtnFormProfileEdit.disabled = true;
+    toggleButtonState(false);
+    const setLoading = showingLoadingClosing(popup);
+    setLoading(false);
 });
 
 clickProfileAdd.addEventListener("click", () => {
-    openPopup(newItemForm);
+    openPopup(newItemPopup);
     //отключаем кнопку перед открытием модального окна
     submitBtnNewItemForm.disabled = true;
 });
@@ -58,49 +66,40 @@ clickButtonAvatarEdit.addEventListener("click", () => {
 });
 
 popupProfileEdit.addEventListener('click', closePopupByClick);
-newItemForm.addEventListener('click', closePopupByClick);
+newItemPopup.addEventListener('click', closePopupByClick);
 imgBigPopap.addEventListener('click', closePopupByClick);
 popupAvatar.addEventListener('click', closePopupByClick);
 
-function closePopupByClick(event) {
-    if(event.target.classList.contains('popup__close') ||
-       event.target.classList.contains('popup')
-    ) {
-      closePopup(event.target.closest('.popup'));
-    }
-}
 
-//Выводим массив карточек
-/* primordialCards.forEach(function newItem(point) {
-    const newItem = createCard(point);
-    cardsList.prepend(newItem);
-}); */
 
-// тест
-const userPromise = getUserInfo();
-const cardPromise = getCards();
-
-Promise.all([userPromise, cardPromise])
+Promise.all([getUserInfo(), getCards()])
   .then(res => {
-    getUserInfo._id = res[0]._id;
     renderUserInfo(res[0].name, res[0].about);
     renderUserAvatar(res[0].name, res[0].avatar);
 
-    res[1].reverse().forEach(function newItem(point) {
-        const newItem = createCard(point);
-        cardsList.prepend(newItem);
+    res[1].forEach(function newItem(point) {
+        renderNewCard(point)
     });
   })
-  .catch(err => errorOutput(err));
-
-  
+  .catch(showErrorOutput);
 
 //Выводим новую карточку
-function renderCard(point) {
+function renderNewCard(point) {
     const newItem = createCard(point);
     cardsList.prepend(newItem)
 }
 
+function showingLoadingClosing(btn) {
+    const formButton = btn;
+    const text = formButton.textContent;
+    return function (isLoading) {
+      if (isLoading) {
+        formButton.textContent = 'Сохранение...';
+      } else {
+        formButton.textContent = text;
+      }
+    };
+  }
 // Обработчик отправки формы "новое место"
 function handleMestoForm(evt) {
     // Отменим стандартное поведение
@@ -113,19 +112,21 @@ function handleMestoForm(evt) {
         link,
         alt: name,
     };
-    renderCard(point);
-    closePopup(newItemForm);
-    editCard(point);
+
+    closePopup(newItemPopup);
+    addNewCard(point);
+    renderNewCard(point);
+    const setLoading = showingLoadingClosing(submitProfileButton);
+    setLoading(true);
     formNewMesto.reset(); //очистка всей формы "Новое место" после submit
 }
-
 // Обработчик отправки формы "редактировать профиль"
 export function handleProfileForm(evt) {
     // Отменим стандартное поведение
     evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileSubname.textContent = jobInput.value;
-    editProfile({
+    dataProfile({
         name: nameInput.value,
         about: jobInput.value,
       });
@@ -138,9 +139,9 @@ export function handleAvatarForm(evt) {
     // Отменим стандартное поведение
     evt.preventDefault();
     profileAvatarImg.src = avatarLinkInput.value;
-    editAvatar({
+    dataAvatar({
         avatar: avatarLinkInput.value,
       });
-      formNewAvatar.reset(); //очистка всей формы "Редактировать профиль" после submit
+    formNewAvatar.reset(); //очистка всей формы "Редактировать профиль" после submit
     closePopup(popupAvatar);
 }

@@ -1,55 +1,54 @@
 import { cardTemplate, modalImageElement, captionTextImg, imgBigPopap } from './constants.js'
 import { openPopup } from './modal.js';
-import { getLike, removeLike, deleteCard } from './api.js';
-import { errorOutput } from './utils.js'
+import { addLike, removeLike, deleteCard } from './api.js';
+import { showErrorOutput } from './utils.js'
+
+const updateLikesCount = (selector, count) => {
+    selector.textContent = count;
+  }
 
 //функция для инициализации карточки
-/* const updateLikesCount = (selector, count) => {
-    selector.textContent = count;
-  } */
 export function createCard(point) {
     const newItem = cardTemplate.querySelector(".card").cloneNode(true);
-    //newItem.querySelector(".card__likes").textContent = point.likes.length;
-    //обрабатываем лайк
-    const cardLikesCount = newItem.querySelector(".card__likes"); 
+    newItem.id = point._id;
+    const cardLikesCount = newItem.querySelector(".card__likes");
+    //обрабатываем лайк 
     newItem.querySelector(".card__like")
         .addEventListener("click", function (evt) {
-            //evt.target.classList.toggle("card__like_active");
             if(!evt.target.classList.contains("card__like_active")) {
-                getLike(newItem.id)
-                  .then((res) => {
+                //добавляем like
+                addLike(newItem.id)
+                  .then((point) => {      
+                    cardLikesCount.textContent = point.likes.length;  
                     evt.target.classList.add("card__like_active");
-                    updateLikesCount(cardLikesCount, res.likes.length);
+                    updateLikesCount(cardLikesCount, point.likes.length);
                   })
-                  .catch(err => errorOutput(err));
+                  .catch(showErrorOutput);
               } else {
+                  //удаляем like
                 removeLike(newItem.id)
-                  .then((res) => {
+                  .then((point) => {
+                    cardLikesCount.textContent = point.likes.length
                     evt.target.classList.remove("card__like_active");
-                    updateLikesCount(cardLikesCount, res.likes.length);
+                    updateLikesCount(cardLikesCount, point.likes.length);                   
                   })
-                  .catch(err => errorOutput(err));
+                  .catch(showErrorOutput);
               }
-        });   
-        cardLikesCount.textContent = getLike.length;
+        });          
     //удаляем карточку
     const deleteButton = newItem.querySelector(".card__delete-icon");
     deleteButton.addEventListener("click", function () {
-        
-        
         newItem.remove();
-        
         deleteCard(newItem.id)
         .then(() => {
-          evt.target.parentNode.remove();
+          newItem.id.closest();     
         })
-        .catch(err => errorOutput(err));
-
+        .catch(showErrorOutput);
     });
 
-/*       // Иконка удаления карточки
+      // Иконка удаления карточки
   // Проверка на принадлежность карточки текущему пользователю
-  if(owner) {
+ /*  if(owner) {
     // Показываем иконку удаления
     cardRemoveButton.classList.add(config.cards.deleteButtonVisibleClass);
 
