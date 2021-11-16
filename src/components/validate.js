@@ -17,7 +17,7 @@ const showInputError = (inputElement) => {
     inputElement.classList.add(config.inputErrorClass);
 };
 
-const toggleButtonState = (buttonElement, inputList) => {
+export const toggleButtonState = (buttonElement, inputList) => {
     // если форма валидна, кнопка включения еще отключена
     if (isFormValid(inputList)) {
         // кнопку включить

@@ -17,7 +17,7 @@ function getUserInfo() {
         }).then(checkResponse);
 }
 //получить профиль
-function editProfile(edit) {
+function dataProfile(edit) {
     return fetch(`${config.serverUrl}/users/me`, {
         method: "PATCH",
         headers: config.headers,
@@ -28,7 +28,7 @@ function editProfile(edit) {
     });
 }
 //получить аватар
-function editAvatar(edit) {
+function dataAvatar(edit) {
     return fetch(`${config.serverUrl}/users/me/avatar`, {
         method: "PATCH",
         headers: config.headers,
@@ -45,19 +45,18 @@ const getCards = () => {
         }).then(checkResponse)
 };
 //сохраним новую карточку на сервер
-function editCard(point) {
+function addNewCard(point) {
     return fetch(`${config.serverUrl}/cards`, {
         method: "POST",
         headers: config.headers,
         body: JSON.stringify({
         name: point.name,
         link: point.link,
-        alt: point.name,
         }),
     }).then(checkResponse)
 };
-//получить лайки с сервер
-const getLike = (cardId) => {
+//Этот метод ставит лайк
+const addLike = (cardId) => {
     return fetch(`${config.serverUrl}/cards/likes/${cardId}`, {
       method: "PUT",
       headers: config.headers,
@@ -80,10 +79,10 @@ const deleteCard = (cardId) => {
 export {
     getUserInfo,
     getCards,
-    editProfile,
-    editAvatar,
-    editCard,
-    getLike,
+    dataProfile,
+    dataAvatar,
+    addNewCard,
+    addLike,
     removeLike,
     deleteCard
 };
