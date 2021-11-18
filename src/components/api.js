@@ -44,6 +44,7 @@ const getCards = () => {
         headers: config.headers,
         }).then(checkResponse)
 };
+
 //сохраним новую карточку на сервер
 function addNewCard(point) {
     return fetch(`${config.serverUrl}/cards`, {

@@ -1,4 +1,5 @@
-import { config } from './constants.js';
+import { config, nameInput, profileName, jobInput, profileSubname, submitBtnFormProfileEdit,
+    submitBtnNewItemForm, submitBtnNewAvatar } from './constants.js';
 
 const isFormValid = (inputList) => {
     //проверка валидности инпутов
@@ -16,6 +17,18 @@ const showInputError = (inputElement) => {
     errorElement.textContent = inputElement.validationMessage;
     inputElement.classList.add(config.inputErrorClass);
 };
+
+export function setValuesFormProfileEdit() {
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileSubname.textContent;
+    submitBtnFormProfileEdit.disabled = false;
+  }
+export function setValuesFormProfileAdd() {
+    submitBtnNewItemForm.disabled = true;
+}  
+export function setValuesFormNewAvatar() {
+    submitBtnNewAvatar.disabled = true;
+} 
 
 export const toggleButtonState = (buttonElement, inputList) => {
     // если форма валидна, кнопка включения еще отключена
