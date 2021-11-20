@@ -17,6 +17,11 @@ export function createCard(point) {
     const updateLikesCount = (selector, count) => {
       selector.textContent = count;
     }
+    //если пользователь уже лайкнул карточку ставим active
+    const isLiked = point.likes.some((userInfo) => userInfo._id === point.owner._id);
+      if (isLiked) {
+      iconLike.classList.add('card__like_active');
+    } 
     cardLikesCount.textContent = point.likes.length;
     newItem.querySelector(".card__like")
         .addEventListener("click", function (evt) {
@@ -38,21 +43,16 @@ export function createCard(point) {
                   .catch(showErrorOutput);
               }
         });
-        //если пользователь уже лайкнул карточку ставим active
-        const isLike = point.likes.some((userInfo) => userInfo._id === point.owner._id);
-        if (isLike) {
-          iconLike.classList.add('card__like_active');
-        } 
       //удаляем карточку
       //проверяем id создателя карточки и id юзера, если не совпадает, удалить card__delete-icon
       const deleteButton = newItem.querySelector(".card__delete-icon");
       if (userInfo._id !== newItem.owner._id) {
         deleteButton.remove();
       }
-      deleteButton.addEventListener("click", function () {
+      deleteButton.addEventListener("click", function (e) {
           deleteCard(newItem.id)
           .then(() => {
-            newItem.remove();     
+            e.target.closest('.card').remove();     
           })
           .catch(showErrorOutput);
       });
