@@ -17,13 +17,13 @@ function getUserInfo() {
         }).then(checkResponse);
 }
 //получить профиль
-function dataProfile(edit) {
+function editProfile(data) {
     return fetch(`${config.serverUrl}/users/me`, {
         method: "PATCH",
         headers: config.headers,
         body: JSON.stringify({
-        name: edit.name,
-        about: edit.about,
+        name: data.name,
+        about: data.about,
         }),
     });
 }
@@ -80,7 +80,7 @@ const deleteCard = (cardId) => {
 export {
     getUserInfo,
     getCards,
-    dataProfile,
+    editProfile,
     dataAvatar,
     addNewCard,
     addLike,

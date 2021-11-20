@@ -27,7 +27,7 @@ import {
     submitProfileButton } from '../components/constants.js';
 import { openPopup, closePopup, closePopupByClick, showingLoadingClosing } from "../components/modal.js";
 import { renderUserInfo, renderUserAvatar, showErrorOutput } from "../components/utils.js";
-import { getUserInfo, dataProfile, dataAvatar, getCards, addNewCard } from "../components/api.js";
+import { getUserInfo, editProfile, dataAvatar, getCards, addNewCard } from "../components/api.js";
 // вызваем функцию валидации input
 enableValidation(config);
 
@@ -114,7 +114,7 @@ export function handleProfileForm(evt) {
     showLoading(true);
     profileName.textContent = nameInput.value;
     profileSubname.textContent = jobInput.value;
-    dataProfile({
+    editProfile({
         name: nameInput.value,
         about: jobInput.value,
       }).then(() => {
