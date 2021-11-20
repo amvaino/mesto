@@ -82,10 +82,6 @@ function handleMestoForm(evt) {
       //Получения введенных значений в поля
       const name = mestoTitle.value;
       const link = mestoLink.value;
-/*       const point = {
-          name,
-          link,
-      }; */
   addNewCard({
     name,
     link,
@@ -114,12 +110,12 @@ export function handleProfileForm(evt) {
     const formButton = popupProfileEdit.querySelector(config.buttonSelector);
     const showLoading = renderLoadingClosing(formButton);
     showLoading(true);
-    profileName.textContent = nameInput.value;
-    profileSubname.textContent = jobInput.value;
     editProfile({
         name: nameInput.value,
         about: jobInput.value,
       }).then(() => {
+        profileName.textContent = nameInput.value;
+        profileSubname.textContent = jobInput.value;
         submitProfileButton.disabled = true;
         formProfileEdit.reset(); //очистка всей формы "Редактировать профиль" после submit
         closePopup(popupProfileEdit);
@@ -137,11 +133,11 @@ export function handleAvatarForm(evt) {
     const formButton = formNewAvatar.querySelector(config.buttonSelector);
     const showLoading = renderLoadingClosing(formButton);
     showLoading(true);
-    profileAvatarImg.src = avatarLinkInput.value;
     editAvatar({
         avatar: avatarLinkInput.value,
       }).then(() => {
         submitBtnNewAvatar.disabled = true;
+        profileAvatarImg.src = avatarLinkInput.value;
         formNewAvatar.reset();
         closePopup(popupAvatar);
       })
