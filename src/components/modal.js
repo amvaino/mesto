@@ -33,18 +33,7 @@ function closePopupClickEsc(event) {
         closePopup(openedPopup);
     }
 }
-//функция меняет надпись на кнопке в момент загрузки
-export function showingLoadingClosing(btn) {
-    const formButton = btn;
-    const text = formButton.textContent;
-    return function (isLoading) {
-      if (isLoading) {
-        formButton.textContent = 'Сохранение...';
-      } else {
-        formButton.textContent = text;
-      }
-    };
-  }
+
   export function handleAvatarForm(evt) {
     // Отменим стандартное поведение
     evt.preventDefault();

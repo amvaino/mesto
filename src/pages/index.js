@@ -25,7 +25,7 @@ import {
     submitBtnFormProfileEdit,
     submitBtnNewAvatar,
     submitProfileButton } from '../components/constants.js';
-import { openPopup, closePopup, closePopupByClick, showingLoadingClosing } from "../components/modal.js";
+import { openPopup, closePopup, closePopupByClick } from "../components/modal.js";
 import { renderUserInfo, renderUserAvatar, showErrorOutput } from "../components/utils.js";
 import { getUserInfo, editProfile, editAvatar, getCards, addNewCard } from "../components/api.js";
 // вызваем функцию валидации input
@@ -77,7 +77,7 @@ export const userInfo = {};
 function handleMestoForm(evt) {
   evt.preventDefault();
   const formButton = newItemPopup.querySelector(config.buttonSelector);
-  const showLoading = showingLoadingClosing(formButton);
+  const showLoading = renderLoadingClosing(formButton);
   showLoading(true);
       //Получения введенных значений в поля
       const name = mestoTitle.value;
@@ -110,7 +110,7 @@ export function handleProfileForm(evt) {
     // Отменим стандартное поведение
     evt.preventDefault();
     const formButton = popupProfileEdit.querySelector(config.buttonSelector);
-    const showLoading = showingLoadingClosing(formButton);
+    const showLoading = renderLoadingClosing(formButton);
     showLoading(true);
     profileName.textContent = nameInput.value;
     profileSubname.textContent = jobInput.value;
@@ -133,7 +133,7 @@ export function handleAvatarForm(evt) {
     // Отменим стандартное поведение
     evt.preventDefault();
     const formButton = formNewAvatar.querySelector(config.buttonSelector);
-    const showLoading = showingLoadingClosing(formButton);
+    const showLoading = renderLoadingClosing(formButton);
     showLoading(true);
     profileAvatarImg.src = avatarLinkInput.value;
     editAvatar({
@@ -147,4 +147,16 @@ export function handleAvatarForm(evt) {
       .finally(() => {
         showLoading(false);
       });
+}
+//функция меняет надпись на кнопке в момент загрузки
+function renderLoadingClosing(btn) {
+  const formButton = btn;
+  const text = formButton.textContent;
+  return function (isLoading) {
+    if (isLoading) {
+      formButton.textContent = 'Сохранение...';
+    } else {
+      formButton.textContent = text;
+    }
+  };
 }
