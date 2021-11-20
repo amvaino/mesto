@@ -24,7 +24,6 @@ export function createCard(point) {
                 //добавляем like
                 addLike(newItem.id)
                   .then((point) => {      
-                    cardLikesCount.textContent = point.likes.length;  
                     iconLike.classList.add("card__like_active");
                     updateLikesCount(cardLikesCount, point.likes.length);
                   })
@@ -33,7 +32,6 @@ export function createCard(point) {
                   //удаляем like
                 removeLike(newItem.id)
                   .then((point) => {
-                    cardLikesCount.textContent = point.likes.length;
                     iconLike.classList.remove("card__like_active");
                     updateLikesCount(cardLikesCount, point.likes.length);                   
                   })
