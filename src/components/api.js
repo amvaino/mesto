@@ -28,12 +28,12 @@ function editProfile(data) {
     });
 }
 //получить аватар
-function dataAvatar(edit) {
+function editAvatar(data) {
     return fetch(`${config.serverUrl}/users/me/avatar`, {
         method: "PATCH",
         headers: config.headers,
         body: JSON.stringify({
-        avatar: edit.avatar,
+        avatar: data.avatar,
         }),
     }).then(checkResponse)
 }
@@ -81,7 +81,7 @@ export {
     getUserInfo,
     getCards,
     editProfile,
-    dataAvatar,
+    editAvatar,
     addNewCard,
     addLike,
     removeLike,

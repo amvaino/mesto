@@ -27,7 +27,7 @@ import {
     submitProfileButton } from '../components/constants.js';
 import { openPopup, closePopup, closePopupByClick, showingLoadingClosing } from "../components/modal.js";
 import { renderUserInfo, renderUserAvatar, showErrorOutput } from "../components/utils.js";
-import { getUserInfo, editProfile, dataAvatar, getCards, addNewCard } from "../components/api.js";
+import { getUserInfo, editProfile, editAvatar, getCards, addNewCard } from "../components/api.js";
 // вызваем функцию валидации input
 enableValidation(config);
 
@@ -136,7 +136,7 @@ export function handleAvatarForm(evt) {
     const showLoading = showingLoadingClosing(formButton);
     showLoading(true);
     profileAvatarImg.src = avatarLinkInput.value;
-    dataAvatar({
+    editAvatar({
         avatar: avatarLinkInput.value,
       }).then(() => {
         submitBtnNewAvatar.disabled = true;
