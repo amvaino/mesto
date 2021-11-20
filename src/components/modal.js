@@ -33,23 +33,3 @@ function closePopupClickEsc(event) {
         closePopup(openedPopup);
     }
 }
-
-  export function handleAvatarForm(evt) {
-    // Отменим стандартное поведение
-    evt.preventDefault();
-    const formButton = formNewAvatar.querySelector(config.buttonSelector);
-    const showLoading = showingLoadingClosing(formButton);
-    showLoading(true);
-    profileAvatarImg.src = avatarLinkInput.value;
-    dataAvatar({
-        avatar: avatarLinkInput.value,
-      }).then(() => {
-        submitBtnNewAvatar.disabled = true;
-        formNewAvatar.reset();
-        closePopup(popupAvatar);
-      })
-      .catch(showErrorOutput)
-      .finally(() => {
-        showLoading(false);
-      });
-}

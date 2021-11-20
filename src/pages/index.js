@@ -65,7 +65,7 @@ export const userInfo = {};
   .then(res => {
     userInfo._id = res[0]._id;
     renderUserInfo(res[0].name, res[0].about);
-    renderUserAvatar(res[0].name, res[0].avatar, res[0]._id);
+    renderUserAvatar(res[0].name, res[0].avatar);
 
     res[1].forEach(function newItem(point) {
         renderNewCard(point)
@@ -82,13 +82,15 @@ function handleMestoForm(evt) {
       //Получения введенных значений в поля
       const name = mestoTitle.value;
       const link = mestoLink.value;
-      const point = {
+/*       const point = {
           name,
           link,
-      };
-  addNewCard(point)
+      }; */
+  addNewCard({
+    name,
+    link,
+  })
     .then((newItem) => {
-      renderNewCard(newItem)
       cardsList.prepend(createCard(newItem));
       closePopup(newItemPopup);
       formNewMesto.reset();
