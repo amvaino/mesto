@@ -39,19 +39,19 @@ popupAvatar.addEventListener("submit", handleAvatarForm);
 clickProfileEdit.addEventListener("click", () => {
     openPopup(popupProfileEdit);
     //отключаем кнопку перед открытием модального окна
-    setValuesFormProfileEdit();
+    //setValuesFormProfileEdit();
 });
 
 clickProfileAdd.addEventListener("click", () => {
     openPopup(newItemPopup);
     //отключаем кнопку перед открытием модального окна
-    setValuesFormProfileAdd();
+    //setValuesFormProfileAdd();
 });
 
 clickButtonAvatarEdit.addEventListener("click", () => {
     openPopup(popupAvatar);
     //отключаем кнопку перед открытием модального окна
-    setValuesFormNewAvatar();
+    //setValuesFormNewAvatar();
 });
 
 popupProfileEdit.addEventListener('click', closePopupByClick);
@@ -114,8 +114,8 @@ export function handleProfileForm(evt) {
         name: nameInput.value,
         about: jobInput.value,
       }).then(() => {
-        profileName.textContent = nameInput.value;
-        profileSubname.textContent = jobInput.value;
+        profileName.textContent = nameInput.value; 
+        profileSubname.textContent = jobInput.value; 
         submitProfileButton.disabled = true;
         formProfileEdit.reset(); //очистка всей формы "Редактировать профиль" после submit
         closePopup(popupProfileEdit);
