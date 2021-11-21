@@ -4,7 +4,9 @@ export const config = {
     inputSelector: ".popup__form-input",
     buttonSelector: ".popup__button",
     inputErrorClass: "popup__form-error",
+    inactiveButtonClass: "popup__botton_disabled",
 } 
+
 export const popup = document.querySelectorAll(".popup")
 export const formNewMesto = document.forms.formNewMesto //форма "Новое место"
 export const clickProfileEdit = document.querySelector(".profile__edit") //находим кнопку "редактировать профиль"

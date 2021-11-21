@@ -1,86 +1,87 @@
-import { config, nameInput, profileName, jobInput, profileSubname, submitBtnFormProfileEdit,
-    submitBtnNewItemForm, submitBtnNewAvatar } from './constants.js';
+import {
+    nameInput,
+    profileName,
+    jobInput,
+    profileSubname,
+    submitBtnFormProfileEdit,
+} from "./constants.js";
 
 const isFormValid = (inputList) => {
-    //проверка валидности инпутов
-    return inputList.every((inputElement) => inputElement.validity.valid);
+    return inputList.every((item) => item.validity.valid);
 };
 
-const hideInputError = (inputElement) => {
-    const errorElement = document.querySelector(`#${inputElement.name}-error`);
+const toggleButtonState = (inputList, submitButton, selectors) => {
+    // если форма валидна, кнопка включения еще отключена
+    if (isFormValid(inputList)) {
+        // кнопку включить
+        submitButton.disabled = false;
+        submitButton.classList.remove(selectors.inactiveButtonClass);
+    } else {
+        // кнопку выключить
+        submitButton.disabled = true;
+        submitButton.classList.add(selectors.inactiveButtonClass);
+    }
+};
+
+const hideInputError = (formElement, inputElement, selectors) => {
+    const errorElement = formElement.querySelector(
+        `#${inputElement.name}-error`
+    );
     errorElement.textContent = "";
-    inputElement.classList.remove(config.inputErrorClass);
+    inputElement.classList.remove(selectors.inputErrorClass);
 };
 
-const showInputError = (inputElement) => {
-    const errorElement = document.querySelector(`#${inputElement.name}-error`);
+const showInputError = (formElement, inputElement, selectors) => {
+    const errorElement = formElement.querySelector(
+        `#${inputElement.name}-error`
+    );
     errorElement.textContent = inputElement.validationMessage;
-    inputElement.classList.add(config.inputErrorClass);
+    inputElement.classList.add(selectors.inputErrorClass);
+};
+
+const checkInputValidity = (formElement, inputElement, selectors) => {
+    // если валидно
+    if (inputElement.validity.valid) {
+        // скрыть ошибку
+        hideInputError(formElement, inputElement, selectors);
+    } else {
+        // иначе показать ошибку
+        showInputError(formElement, inputElement, selectors);
+    }
+};
+
+const setEventListeners = (formElement, selectors) => {
+    formElement.addEventListener("submit", (e) => {
+        e.preventDefault();
+    });
+    // найти все инпуты
+    const inputList = Array.from(
+        formElement.querySelectorAll(selectors.inputSelector)
+    );
+    // найти кнопку
+    const submitButton = formElement.querySelector(selectors.buttonSelector);
+
+    inputList.forEach((item) => {
+        item.addEventListener("input", () => {
+            checkInputValidity(formElement, item, selectors);
+            toggleButtonState(inputList, submitButton, selectors);
+        });
+    });
+    // установить начальное состояние кнопки
+    toggleButtonState(inputList, submitButton, selectors);
 };
 
 export function setValuesFormProfileEdit() {
     nameInput.value = profileName.textContent;
     jobInput.value = profileSubname.textContent;
     submitBtnFormProfileEdit.disabled = false;
-  }
-export function setValuesFormProfileAdd() {
-    submitBtnNewItemForm.disabled = true;
-}  
-export function setValuesFormNewAvatar() {
-    submitBtnNewAvatar.disabled = true;
-} 
+}
 
-export const toggleButtonState = (buttonElement, inputList) => {
-    // если форма валидна, кнопка включения еще отключена
-    if (isFormValid(inputList)) {
-        // кнопку включить
-        buttonElement.disabled = false;
-    } else {
-        // кнопку выключить
-        buttonElement.disabled = true;
-    }
-};
-const checkInputValidity = (inputElement) => {
-    // если валидно
-    if (inputElement.validity.valid) {
-        // скрыть ошибку
-        hideInputError(inputElement);
-    } else {
-        // иначе показать ошибку
-        showInputError(inputElement);
-    }
-};
-const setEventListeners = (formElement) => {
-    // предотвратить перезагрузку страницы при отправке формы
-    formElement.addEventListener("submit", (e) => {
-        e.preventDefault();
-    });
-
-    // найти все инпуты
-    const inputList = Array.from(
-        formElement.querySelectorAll(config.inputSelector)
-    );
-    // найти кнопку
-    const submitButton = formElement.querySelector(config.buttonSelector);
-    // установить начальное состояние кнопки
-    toggleButtonState(submitButton, inputList);
-
-    inputList.forEach((inputElement) => {
-        // добавить слушателей для каждого инпута
-        inputElement.addEventListener("input", () => {
-            // проверка, что каждый ввод валиден
-            checkInputValidity(inputElement);
-
-            // состояние кнопки переключения
-            toggleButtonState(submitButton, inputList);
-        });
-    });
-};
-export const enableValidation = () => {
+export const enableValidation = (selectors) => {
     // найти все формы и создать из них массив
-    const formList = Array.from(document.querySelectorAll(config.formSelector));
+    const formList = Array.from(
+        document.querySelectorAll(selectors.formSelector)
+    );
     // слушатель для формы каждой
-    formList.forEach((formElement) => {
-        setEventListeners(formElement);
-    });
+    formList.forEach((item) => setEventListeners(item, selectors));
 };
