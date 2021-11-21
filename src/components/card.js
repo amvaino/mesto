@@ -76,9 +76,3 @@ export function createCard(point) {
         });
     return newItem;
 }
-
-function removeListenerIfImageNotLoad(image) {
-    image.addEventListener("error", () =>
-        image.removeEventListener("click", handlePhotoClicked)
-    );
-}

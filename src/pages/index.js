@@ -61,23 +61,16 @@ function setValuesFormProfileEdit() {
 }
 clickProfileEdit.addEventListener("click", () => {
     openPopup(popupProfileEdit);
-
     //состояние кнопки перед открытием модального окна
     setValuesFormProfileEdit();
 });
-//toggleButtonState(newItemPopup, popupProfileEdit, popupAvatar)
+
 clickProfileAdd.addEventListener("click", () => {
     openPopup(newItemPopup);
-
-    //отключаем кнопку перед открытием модального окна
-    //toggleButtonState(newItemPopup);
 });
 
 clickButtonAvatarEdit.addEventListener("click", () => {
     openPopup(popupAvatar);
-
-    //отключаем кнопку перед открытием модального окна
-    //setValuesFormNewAvatar();
 });
 
 popupProfileEdit.addEventListener("click", closePopupByClick);
