@@ -17,23 +17,23 @@ function getUserInfo() {
         }).then(checkResponse);
 }
 //получить профиль
-function dataProfile(edit) {
+function editProfile(data) {
     return fetch(`${config.serverUrl}/users/me`, {
         method: "PATCH",
         headers: config.headers,
         body: JSON.stringify({
-        name: edit.name,
-        about: edit.about,
+        name: data.name,
+        about: data.about,
         }),
     });
 }
 //получить аватар
-function dataAvatar(edit) {
+function editAvatar(data) {
     return fetch(`${config.serverUrl}/users/me/avatar`, {
         method: "PATCH",
         headers: config.headers,
         body: JSON.stringify({
-        avatar: edit.avatar,
+        avatar: data.avatar,
         }),
     }).then(checkResponse)
 }
@@ -80,8 +80,8 @@ const deleteCard = (cardId) => {
 export {
     getUserInfo,
     getCards,
-    dataProfile,
-    dataAvatar,
+    editProfile,
+    editAvatar,
     addNewCard,
     addLike,
     removeLike,

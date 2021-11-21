@@ -4,6 +4,8 @@
     object-fit: cover;
     object-position: top;
     cursor: pointer;
+    display: block;
+    background: url("/src/images/error-img.png") no-repeat;
 }
 .card__image:hover {
     cursor: pointer;
